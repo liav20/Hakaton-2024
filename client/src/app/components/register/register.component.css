@@ -1,0 +1,19 @@
+.background-image {
+    background-image: url('/assets/image/FootballPitch.png');
+    height: 95vh; /* Adjusted from 100vh to 95vh */
+    background-size: cover;
+    background-position: center;
+    margin: auto; /* Center the background in the middle of the page */
+  }
+  .overlay {
+    background-color: rgba(255, 255, 255, 0.3); /* White with 30% opacity */
+    width: 100%; /* Cover the parent div */
+    height: 100%; /* Cover the parent div */
+    position: relative; /* Adjust this based on layout needs */
+  }
+  .overlay {
+    background-color: rgba(255, 255, 255, 0.3); /* White with 30% opacity */
+    width: 100%; /* Cover the parent div */
+    height: 100%; /* Cover the parent div */
+    position: relative; /* Adjust this based on layout needs */
+  }
