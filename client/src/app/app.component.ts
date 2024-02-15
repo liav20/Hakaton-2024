@@ -8,8 +8,8 @@ import { RegisterComponent } from './components/register/register.component';
   standalone: true,
   imports: [
     RouterOutlet,
-  LoginComponent,
-  RegisterComponent],
+    LoginComponent,
+    RegisterComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
