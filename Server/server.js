@@ -1,13 +1,16 @@
 const express = require('express');
 const app = express();
-const PORT = 3000;
+const userRoute = require('./routes/userRoutes');
+const authRoute = require('./routes/authRoutes');
+const gameRoute = require('./routes/gameRoutes');
 
-// Define a route
-app.get('/', (req, res) => {
-    res.send('Hello, world!');
-});
+// Use routes
+app.use('/api/friend', userRoute);
+app.use('/api/auth', authRoute);
+app.use('/api/game', gameRoute);
 
 // Start the server
+const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
 });
