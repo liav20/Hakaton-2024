@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const db = require('../db');
 
 // Define routes for users
 router.post('/signUp', (req, res) => {
@@ -10,6 +11,14 @@ router.post('/signUp', (req, res) => {
     const { username, email, password } = bodyData;
     console.log('userName',password);
     // Logic to fetch users from the database
+
+    const sql = `INSERT INTO User (username, email, password) VALUES (?, ?, ?)`;
+    db.run(sql, [username, email, password], function(err) {
+        if (err) {
+            console.error('Error inserting user:', err.message);
+            return res.status(500).json({ error: 'Error inserting user' });
+        }
+
     res.json({ users: [{name:'user1',}] }); // Sample response
 });
 
@@ -17,5 +26,5 @@ router.post('/signIn', (req, res) => {
     // Logic to create a new user in the database
     res.json({ message: 'User created successfully' }); // Sample response
 });
-
+});
 module.exports = router;
