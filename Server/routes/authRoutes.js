@@ -1,30 +1,36 @@
 const express = require('express');
 const router = express.Router();
-const db = require('../db');
+const mongoose = require('mongoose');
+const User = require('../models/User');
 
 // Define routes for users
-router.post('/signUp', (req, res) => {
-    console.log('req.body',req.body);
-    const bodyData = JSON.parse(req.body.query);
-    console.log('bodyData',bodyData);
-    console.log('hellos from friend');
-    const { username, email, password } = bodyData;
-    console.log('userName',password);
-    // Logic to fetch users from the database
+router.post('/signUp', async (req, res) => {
+    const data = new User({
+        username: req.body.username,
+        email: req.body.email,
+        password: req.body.password
+    });
 
-    const sql = `INSERT INTO User (username, email, password) VALUES (?, ?, ?)`;
-    db.run(sql, [username, email, password], function(err) {
-        if (err) {
-            console.error('Error inserting user:', err.message);
-            return res.status(500).json({ error: 'Error inserting user' });
-        }
-
-    res.json({ users: [{name:'user1',}] }); // Sample response
+    try {
+        await User.create(data);
+        res.status(200).json(data);
+    } catch(error) {
+        res.status(500);
+    }
 });
 
-router.post('/signIn', (req, res) => {
+router.post('/signIn', async (req, res) => {
     // Logic to create a new user in the database
     res.json({ message: 'User created successfully' }); // Sample response
 });
+
+router.get('/', async (req, res) => {
+    res.send("Default Get");
 });
+
+router.get('/getUserById/:id?', async (req, res) => {
+    console.log(req.query.id);
+    res.json(await User.findById(req.query.id));
+});
+
 module.exports = router;

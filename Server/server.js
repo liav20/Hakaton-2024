@@ -1,9 +1,13 @@
 const express = require('express');
-const app = express();
 const userRoute = require('./routes/userRoutes');
 const authRoute = require('./routes/authRoutes');
 const gameRoute = require('./routes/gameRoutes');
+const db = require('./services/db')
 
+const app = express();
+
+
+app.use(express.json());
 // Use routes
 app.use('/api/user', userRoute);
 app.use('/api/auth', authRoute);
@@ -14,5 +18,3 @@ const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
 });
-
-
