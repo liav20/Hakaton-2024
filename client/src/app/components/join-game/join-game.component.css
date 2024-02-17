@@ -1,0 +1,54 @@
+.modal {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    z-index: 1000; /* Ensure modal is above other content */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.4); /* Dimmed background */
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.4s, visibility 0.4s;
+  }
+  
+  .modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 50%; /* Adjust based on content size */
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    border-radius: 10px; /* Soften the edges */
+    transform: scale(1.1);
+    transition: transform 0.4s;
+  }
+  
+  .modal.show {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.4s, visibility 0.4s;
+  }
+  
+  .modal-content.show {
+    transform: scale(1);
+    transition: transform 0.4s;
+  }
+  
+  .close-btn {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
+  
+  .close-btn:hover,
+  .close-btn:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  

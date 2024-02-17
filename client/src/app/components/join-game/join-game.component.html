@@ -1,1 +1,18 @@
-<p>join-game works!</p>
+<div class="modal" *ngIf="isVisible">
+    <div class="modal-content">
+      <span class="close-btn" (click)="hideModal()">&times;</span>
+      <h2>Join Via QR Code</h2>
+      <div>
+        <label for="qr-code">QR code</label>
+        <img src="Hakaton-2024\client\src\assets\image\placeholder_for_qr_code_image.png" alt="QR Code Placeholder" />
+      </div>
+      <h2>Join Via Link</h2>
+      <div>
+        <label for="link">Link</label>
+        <input type="text" id="link" name="link" [(ngModel)]="link" />
+      </div>
+      <!-- Optionally, include a button to confirm selections -->
+      <button (click)="confirmJoin()">Join</button>
+    </div>
+  </div>
+  

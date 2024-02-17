@@ -1,12 +1,15 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { SetupGameComponent } from '../setup-game/setup-game.component';
+import { JoinGameComponent } from '../join-game/join-game.component';
 
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule,SetupGameComponent],
+  imports: [CommonModule,
+            SetupGameComponent,
+            JoinGameComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
@@ -31,7 +34,7 @@ export class HomeComponent {
     alert("Going to start...");
   }
   onJoinGameClick(){
-    alert("Join Game")
+    
   }
 
   playerName: string = 'John Doe';
