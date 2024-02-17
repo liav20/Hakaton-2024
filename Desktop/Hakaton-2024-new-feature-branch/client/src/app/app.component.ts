@@ -4,6 +4,8 @@ import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { SetupGameComponent } from './components/setup-game/setup-game.component';
 import { FormsModule } from '@angular/forms';
+import { HostScreenComponent } from './components/host-screen/host-screen.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @Component({
   selector: 'app-root',
@@ -13,8 +15,9 @@ import { FormsModule } from '@angular/forms';
     LoginComponent,
     RegisterComponent,
     RouterModule,
-  SetupGameComponent,
-  FormsModule],
+    SetupGameComponent,
+    FormsModule,
+    HostScreenComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
