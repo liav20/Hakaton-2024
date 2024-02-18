@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 
-const dataSchema = new mongoose.Schema({
+const dataScheme = new mongoose.Schema({
     username: {
         required: true,
         type: String
@@ -35,4 +35,4 @@ const dataSchema = new mongoose.Schema({
     }
 })
 
-module.exports = mongoose.model('user', dataSchema)
+module.exports = mongoose.model('user', dataScheme)

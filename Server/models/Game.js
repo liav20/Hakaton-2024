@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const dataSchema = new mongoose.Scheme({
+const dataScheme = new mongoose.Scheme({
     HostID: {
         require: false,
         type: String
@@ -27,4 +27,4 @@ const dataSchema = new mongoose.Scheme({
     }
 })
 
-module.exports = mongoose.model('Game', dataSchema);
+module.exports = mongoose.model('Game', dataScheme);

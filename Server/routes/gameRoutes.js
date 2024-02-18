@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const mongoose = require('mongoose');
 
 // Define routes for users
 router.post('/createGame', (req, res) => {
