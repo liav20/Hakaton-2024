@@ -21,6 +21,7 @@ router.post('/signUp', async (req, res) => {
 
 router.post('/signIn', async (req, res) => {
     // Logic to create a new user in the database
+    
     res.json({ message: 'User created successfully' }); // Sample response
 });
 

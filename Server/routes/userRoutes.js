@@ -2,21 +2,21 @@ const express = require('express');
 const router = express.Router();
 
 // Define routes for users
-router.get('/getAllFriends', (req, res) => {
+router.get('/getFriends/:id', (req, res) => {
     console.log('hellos from friend');
     // Logic to fetch users from the database
     res.json({ users: [{name:'user1',
 }] }); // Sample response
 });
 
-router.get('/getAllGames', (req, res) => {
+router.get('/getGames/:id', (req, res) => {
     console.log('hellos from friend');
     // Logic to fetch users from the database
     res.json({ users: [{name:'user1',
 }] }); // Sample response
 });
 
-router.get('/getUser', (req, res) => {
+router.get('/getInfo/:id', (req, res) => {
     console.log('hellos from friend');
     // Logic to fetch users from the database
     res.json({ users: [{name:'user1',
