@@ -4,12 +4,14 @@ import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import game from '../../models/game';
 import { GameService } from '../../services/game.service';
+import { HostScreenComponent } from '../host-screen/host-screen.component';
 
 @Component({
   selector: 'app-setup-game',
   standalone: true,
   imports: [CommonModule,
-  FormsModule],
+  FormsModule,
+  HostScreenComponent],
   templateUrl: './setup-game.component.html',
   styleUrl: './setup-game.component.css'
 })
@@ -54,6 +56,6 @@ export class SetupGameComponent {
     this._gameService.postGameCreate(this.HostID).subscribe((response: any) => {
       console.log(response);
     });
-    this.router.navigate(['/host'])
+    this.router.navigate(['/host'], this.HostID)
   }
 }

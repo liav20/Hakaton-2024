@@ -17,7 +17,18 @@ router.post('/createGame/:hostId', async (req, res) => {
         })
     res.json(game);
 });
-
+router.get('/getGameId/:hostId', async (req, res) => {
+    const hostId = req.params.hostId
+    const date = new Date();
+    const game = await Game.create(
+        {
+            HostID: hostId,
+            Date: date,
+            LosingScore: 0,
+            WinningScore: 0,
+        })
+    res.json(game);
+});
 router.get('/getInfo/:id', (req, res) => {
     // Logic to create a new user in the database
     res.json({ message: 'User created successfully' }); // Sample response

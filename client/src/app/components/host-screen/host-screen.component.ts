@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { InviteScreenComponent } from '../invite-screen/invite-screen.component';
 import { GameService } from '../../services/game.service';
@@ -16,6 +16,8 @@ import { Router } from '@angular/router';
 export class HostScreenComponent {
   constructor(private _gameService: GameService,
     private router: Router){}
+
+  @Input() HostID: number | undefined;
 
   func(){
     this.router.navigate(['/invtie']);
