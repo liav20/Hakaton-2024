@@ -9,27 +9,31 @@ router.post('/signUp', async (req, res) => {
         username: req.body.username,
         email: req.body.email,
         password: req.body.password,
-        score:45,
-        wins:0,
-        lose:0,
+        score: 45,
+        wins: 0,
+        lose: 0,
     });
 
     try {
+        const isUser = await User.findOne({ email: req.body.email })
+        if (isUser) {
+            res.json('already a user with this email')
+        }
         await User.create(data);
         res.status(200).json(data);
-    } catch(error) {
+    } catch (error) {
         res.status(500);
     }
 });
 
 router.post('/signIn', async (req, res) => {
-    const {email,password} = req.body
-    console.log('email + password',email,password);
-    const user = await User.findOne({email:email});
-    if(!user){
+    const { email, password } = req.body
+    console.log('email + password', email, password);
+    const user = await User.findOne({ email: email });
+    if (!user) {
         return res.json('no user found')
     }
-    if(user.password!==password){
+    if (user.password !== password) {
         return res.json('wrong password')
     }
     return res.json(user);

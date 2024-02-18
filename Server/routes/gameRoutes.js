@@ -1,12 +1,21 @@
 const express = require('express');
 const router = express.Router();
+const mongoose = require('mongoose');
+const Game = require('../models/Game');
+const User = require('../models/User');
 
 // Define routes for users
-router.post('/createGame',async (req, res) => {
-    
-    console.log('hellos from friend');
-    // Logic to fetch users from the database
-    res.json({ users: [{name:'user1',}] }); // Sample response
+router.post('/createGame/:hostId', async (req, res) => {
+    const hostId = req.params.hostId
+    const date = new Date();
+    const game = await Game.create(
+        {
+            HostID: hostId,
+            Date: date,
+            LosingScore: 0,
+            WinningScore: 0,
+        })
+    res.json(game);
 });
 
 router.get('/getInfo/:id', (req, res) => {
@@ -14,10 +23,32 @@ router.get('/getInfo/:id', (req, res) => {
     res.json({ message: 'User created successfully' }); // Sample response
 });
 
-router.get('/matchMaking',async (req, res) => {
-    const emails= req.body.emails;
-    
-    
+router.post('/matchMaking', async (req, res) => {
+    const emails = req.body.emails;
+    const groupNumber = parseInt(req.body.groupNumber);
+    console.log('emails', emails);
+    const users = await User.find({ email: { $in: emails } });
+    console.log('users', users);
+    function createBalancedTeams(players, numTeams) {
+        // Sort players by score in descending order
+        players.sort((a, b) => b.score - a.score);
+
+        const teams = Array.from({ length: numTeams }, () => []);
+        const totalScores = Array(numTeams).fill(0);
+
+        // Assign players to teams while maintaining balance
+        for (let i = 0; i < players.length; i++) {
+            const teamIndex = i % numTeams;
+            teams[teamIndex].push(players[i]);
+            totalScores[teamIndex] += players[i].score;
+        }
+        return { teams, totalScores };
+    }
+    const { teams, totalScores } = createBalancedTeams(users, groupNumber);
+    for (let i = 0; i < teams.length; i++) {
+        console.log(`Team ${i + 1}:`, teams[i], 'Total Score:', totalScores[i]);
+    }
+
 });
 // router.get('/EndGame', (req, res) => {
 //     // Logic to create a new user in the database
