@@ -10,17 +10,28 @@ import { CommonModule } from '@angular/common';
   styleUrl: './invite-screen.component.css'
 })
 export class InviteScreenComponent  {
-  // gameId: string="";
   // friendsList: any[] = [];
   // isVisible: boolean = false;
 
-  // constructor(private _gameservice: GameService) { }
+  gameId: string | undefined ;
 
-  // ngOnInit(): void {
-  //   this._gameservice.getGameId().subscribe(data => {
-  //     this.gameId = data;
-  //   });
+  constructor(private _gameservice: GameService) { }
 
+   ngOnInit(): void {
+     this._gameservice.getGameId().subscribe(data => {
+       this.gameId = data;
+     });
+    }
+
+     copyGameIdToClipboard(): void {
+      if (this.gameId) {
+        navigator.clipboard.writeText(this.gameId).then(() => {
+          alert('Game ID copied to clipboard!');
+        }, (err) => {
+          console.error('Could not copy text: ', err);
+        });
+      }
+    }
   //   this._gameservice.getFriendsList().subscribe(data => {
   //     this.friendsList = data;
   //   });
@@ -33,4 +44,5 @@ export class InviteScreenComponent  {
   // closeInviteScreen(): void {
   //   this.isVisible = false;
   // }
+ 
 }

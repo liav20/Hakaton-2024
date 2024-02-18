@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { InviteScreenComponent } from '../invite-screen/invite-screen.component';
 import { GameService } from '../../services/game.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-host-screen',
@@ -13,9 +14,10 @@ import { GameService } from '../../services/game.service';
   styleUrl: './host-screen.component.css'
 })
 export class HostScreenComponent {
-  constructor(private _gameService: GameService){}
+  constructor(private _gameService: GameService,
+    private router: Router){}
 
   func(){
-    console.log(this._gameService.getGameId());
-  }
+    this.router.navigate(['/invtie']);
+  } 
 }

@@ -4,6 +4,7 @@ import { RegisterComponent } from './components/register/register.component';
 import { HomeComponent } from './components/home/home.component';
 import { HostScreenComponent } from './components/host-screen/host-screen.component';
 import { ScoreScreenComponent } from './components/score-screen/score-screen.component';
+import { InviteScreenComponent } from './components/invite-screen/invite-screen.component';
 
 
 export const routes: Routes = [
@@ -12,5 +13,6 @@ export const routes: Routes = [
     {path: 'register', component: RegisterComponent},
     {path: 'home', component: HomeComponent},
     {path: 'host', component: HostScreenComponent},
-    {path: 'score',component: ScoreScreenComponent}
+    {path: 'score',component: ScoreScreenComponent},
+    {path: 'invite', component: InviteScreenComponent}
 ];

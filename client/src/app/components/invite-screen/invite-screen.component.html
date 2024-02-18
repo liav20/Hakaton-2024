@@ -1,8 +1,5 @@
-<!-- <div *ngIf="isVisible">
+<div *ngIf="gameId">
     <p>Game ID: {{ gameId }}</p>
-    <ul>
-      <li *ngFor="let friend of friendsList">{{ friend.name }}</li>
-    </ul>
-    Add invite button functionality as needed -->
-  <!-- </div> -->
+    <button (click)="copyGameIdToClipboard()" ></button>
+  </div>
   
