@@ -15,7 +15,7 @@ router.get('/getFriends/:id', async (req, res) => {
             return res.status(404).json({ message: 'User not found' });
         }
 
-        res.json(user.friends);
+        return res.json(user.friends);
     }
     catch(error){
         console.error('Error:', error);
@@ -37,10 +37,40 @@ router.get('/getGames/:id', async (req, res) => {
     console.log('hellos from friend');
     const userID = req.params.id;
     try{
+        const user = await User.findById(userID);
 
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        } 
+
+        // Array to hold game objects
+        const games = [];
+
+        // Loop through each game ID in the user's games list
+        for (const gameId of user.games) {
+            // Find the game by its ID and push it to the games array
+            const game = await Game.findById(gameId);
+            if (game) {
+                games.push(game);
+            }
+        }
+
+        // Send the array of game objects as the response
+        return res.json({ games });
     }
-    catch{
+    catch(error){
+        console.error('Error:', error);
 
+        if (error instanceof Error) {
+            // Synchronous error
+            res.status(500).json({ message: 'Server error' });
+        } else if (error instanceof PromiseRejectionEvent) {
+            // Asynchronous promise rejection
+            res.status(500).json({ message: 'Promise rejection error' });
+        } else {
+            // Other types of errors
+            res.status(500).json({ message: 'Unknown error' });
+        }
     }
 });
 
