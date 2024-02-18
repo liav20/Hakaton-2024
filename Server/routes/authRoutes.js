@@ -8,7 +8,10 @@ router.post('/signUp', async (req, res) => {
     const data = new User({
         username: req.body.username,
         email: req.body.email,
-        password: req.body.password
+        password: req.body.password,
+        score:45,
+        wins:0,
+        lose:0,
     });
 
     try {
@@ -20,9 +23,16 @@ router.post('/signUp', async (req, res) => {
 });
 
 router.post('/signIn', async (req, res) => {
-    // Logic to create a new user in the database
-    
-    res.json({ message: 'User created successfully' }); // Sample response
+    const {email,password} = req.body
+    console.log('email + password',email,password);
+    const user = await User.findOne({email:email});
+    if(!user){
+        return res.json('no user found')
+    }
+    if(user.password!==password){
+        return res.json('wrong password')
+    }
+    return res.json(user);
 });
 
 router.get('/', async (req, res) => {

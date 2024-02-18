@@ -12,6 +12,26 @@ const dataSchema = new mongoose.Schema({
     password: {
         required: true,
         type: String
+    },
+    score: {
+        required: true,
+        type: Number
+    },
+    wins: {
+        required: false,
+        type: Number
+    },
+    lose: {
+        required: false,
+        type: Number
+    },
+    games: {
+        required: false,
+        type: [String]
+    },
+    friends: {
+        required: false,
+        type: [String]
     }
 })
 
