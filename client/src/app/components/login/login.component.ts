@@ -23,8 +23,14 @@ export class LoginComponent {
                 private router: Router){}
 
   loginuser(){
-    this._userService.login(this.email,this.password)
-      alert('login successful');
-      this.router.navigate(['/home']);
-    };
+    this._userService.login(this.email,this.password).subscribe(data=> {
+      if(data == User) {
+        this.loggedin = true;
+        this.router.navigate(['/home']);
+      }
+      else {
+        alert("Invalid email or password");
+      }
+  });
   }
+}
