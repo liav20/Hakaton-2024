@@ -15,4 +15,8 @@ export class GameService {
   getFriendsList(): Observable<any[]> {
     return this.http.get<any[]>('http://localhost:3000/api/game/friends/'); // Adjust URL as needed
   }
+
+  postGameCreate(hostID: string){
+    return this.http.post('http://localhost:3000/api/game/creategame/' + hostID.toString(), hostID);
+  }
 }

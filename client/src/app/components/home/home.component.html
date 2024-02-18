@@ -27,7 +27,7 @@
           <p class="player-name">{{user.username}}</p>
        </div>
         
-        <app-setup-game #teamSetupModal></app-setup-game>
+        <app-setup-game #teamSetupModal [HostID] = user?._id ></app-setup-game>
         <button class="btn start-game" (click)="teamSetupModal.showModal()">Start Game
         </button>
         <app-join-game #teamJoinModal></app-join-game>

@@ -8,8 +8,7 @@ import { GameService } from '../../services/game.service';
   standalone: true,
   imports: [
     CommonModule,
-    InviteScreenComponent,
-    GameService],
+    InviteScreenComponent],
   templateUrl: './host-screen.component.html',
   styleUrl: './host-screen.component.css'
 })
@@ -17,7 +16,6 @@ export class HostScreenComponent {
   constructor(private _gameService: GameService){}
 
   func(){
-    alert();
     console.log(this._gameService.getGameId());
   }
 }

@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import game from '../../models/game';
@@ -14,11 +14,14 @@ import { GameService } from '../../services/game.service';
   styleUrl: './setup-game.component.css'
 })
 export class SetupGameComponent {
-games:game []=[];
-  constructor(
-    private router: Router){
+  @Input() HostID: any ;
+  games:game []=[];
 
-    } 
+  constructor(
+    private _gameService: GameService, 
+    private router: Router
+    ){}
+
   isVisible = false;
   numTeams = 2;
   playersPerTeam = 3;
@@ -48,6 +51,9 @@ games:game []=[];
   confirmSetup(): void {
     console.log(`Number of Teams: ${this.numTeams}, Players per Team: ${this.playersPerTeam}`);
     this.hideModal();
+    this._gameService.postGameCreate(this.HostID).subscribe((response: any) => {
+      console.log(response);
+    });
     this.router.navigate(['/host'])
   }
 }
