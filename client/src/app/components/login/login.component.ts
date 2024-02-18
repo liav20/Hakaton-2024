@@ -3,6 +3,7 @@ import { UserService } from '../../services/user.service';
 import User from '../../models/user'
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { error } from 'console';
 
 @Component({
   selector: 'app-login',
@@ -25,14 +26,10 @@ export class LoginComponent {
   loginUser(){
     this._userService.login(this.tempUser.email,this.tempUser.password).subscribe((response) =>{
       if (response.hasOwnProperty('_id')) {
-        alert(this.tempUser.email)
-        alert(this.tempUser.password)
-        console.log(response);
-        alert(response);
-        //this.router.navigate(['/home']);
+        this.router.navigate(['/home']);
       }
       else {
-        alert(response);
+        alert('error');
       }
     })
   }
