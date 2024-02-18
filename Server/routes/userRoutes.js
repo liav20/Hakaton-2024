@@ -1,5 +1,7 @@
 const express = require('express');
 const router = express.Router();
+const mongoose = require('mongoose');
+const User = require('../models/User');
 
 // Define routes for users
 router.get('/getFriends/:id', (req, res) => {
@@ -16,11 +18,14 @@ router.get('/getGames/:id', (req, res) => {
 }] }); // Sample response
 });
 
-router.get('/getInfo/:id', (req, res) => {
-    console.log('hellos from friend');
-    // Logic to fetch users from the database
-    res.json({ users: [{name:'user1',
-}] }); // Sample response
+router.get('/getInfo/:id',async (req, res) => {
+    const id = req.params.id;
+    console.log('id',id);
+    const user = await User.findById(id);
+    if(!user){
+        return res.json('error no user with that id found')
+    }
+    return res.json(user);
 });
 
 router.post('/addFriend/:email', (req, res) => {
