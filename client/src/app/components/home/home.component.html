@@ -20,15 +20,19 @@
             <circle cx="60" cy="60" r="54" stroke="#ddd" stroke-width="12" fill="none"></circle>
             <circle cx="60" cy="60" r="54" stroke="#4CAF50" stroke-width="12" fill="none"
                     stroke-dasharray="339.292" [attr.stroke-dashoffset]="339.292 * (1 - averageRating / 99)"></circle>
-            <text x="50%" y="50%" font-size="32" text-anchor="middle" stroke="#000" stroke-width="1px" dy=".3em">{{averageRating}}</text>
+            <text x="50%" y="50%" font-size="32" text-anchor="middle" stroke="#000" stroke-width="1px" dy=".3em">{{user?.score}}</text>
           </svg>
         </div>
-        <div class = "player-name">{{playerName}}</div>
+      <div *ngIf="user">
+          <p class="player-name">{{user.username}}</p>
+       </div>
         
         <app-setup-game #teamSetupModal></app-setup-game>
         <button class="btn start-game" (click)="teamSetupModal.showModal()">Start Game
         </button>
-        <button class="btn join-game" (click)="onJoinGameClick()">Join game</button>
+        <app-join-game #teamJoinModal></app-join-game>
+        <button class="btn join-game" (click)="teamJoinModal.showModal()">Join game</button>
+
       </div>
     </div>
   </div>

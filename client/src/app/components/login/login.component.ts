@@ -23,16 +23,19 @@ export class LoginComponent {
     constructor(private _userService: UserService,
                 private router: Router){}
 
-  loginUser(){
-    this._userService.login(this.tempUser.email,this.tempUser.password).subscribe((response) =>{
-      if (response.hasOwnProperty('_id')) {
-        this.router.navigate(['/home']);
-      }
-      else {
-        alert('error');
-      }
-    })
-  }
+                loginUser() {
+                  this._userService.login(this.tempUser.email, this.tempUser.password).subscribe((response: any) => {
+                    if (response && response._id) { // Assuming _id is a property of the user object
+                      this._userService.setCurrentUser(response); // Store the user details
+                      this.router.navigate(['/home']);
+                    } else {
+                      alert('Login failed. Please check your credentials.');
+                    }
+                  }, error => {
+                    console.error('Login error:', error);
+                    alert('An error occurred during login.');
+                  });
+                }
 
 
 }

@@ -2,19 +2,32 @@ import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Output } from '@angular/core';
 import { SetupGameComponent } from '../setup-game/setup-game.component';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { JoinGameComponent } from '../join-game/join-game.component';
+import User from '../../models/user';
+import { UserService } from '../../services/user.service';
 
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule,SetupGameComponent,],
+  imports: [CommonModule,SetupGameComponent,JoinGameComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
 export class HomeComponent {
-  constructor() {}
 
- 
+  user: User | undefined;
+
+  constructor(private userService: UserService) {}
+
+  ngOnInit() {
+    this.userService.currentUser.subscribe(user => {
+      if (user) {
+        this.user = user;
+        console.log(this.user.username);
+      }
+    });
+  }
   averageRating: number = 45;
   avatars = [
       'assets/avatars/avatar1.png',
@@ -29,11 +42,5 @@ export class HomeComponent {
   selectAvatar(avatar: string) {
     this.selectedAvatar = avatar;
   }
-
-
-  onJoinGameClick(){
-    alert("Join Game")
-  }
-
   playerName: string = 'John Doe';
 }
