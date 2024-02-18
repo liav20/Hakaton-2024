@@ -7,13 +7,12 @@
             <!-- Login Form -->
             <div class="form login">
               <h1>Login</h1>
-              <form action="#" method="post">
-                <input type="email" placeholder="Enter your email" required>
-                <input type="password" placeholder="Enter your password" required>
-                <a href="#">Forgot password?</a>
-                <input type="submit" (click)="loginuser()" class="button" value="Login">
-                <p>Not registered yet? <a href="/register">Click here!</a></p>
+              <form (ngSubmit)="loginUser()">
+                <input type="email" placeholder="Email" [(ngModel)]="tempUser.email" name="email">
+                <input type="password" placeholder="Password" [(ngModel)]="tempUser.password" name="password">
+                <button type="submit" class="button">Login</button>
               </form>
+              <p>Not registered yet? <a href="/register">Click here!</a></p>
             </div>
           </div>
         </div>

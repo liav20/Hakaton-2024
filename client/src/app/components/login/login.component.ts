@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { UserService } from '../../services/user.service';
 import User from '../../models/user';
 import { error } from 'console';
+import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 
 @Component({
@@ -13,8 +14,8 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent {
     imageUrl: string = 'https://www.peakpx.com/en/hd-wallpaper-desktop-kqeiw';
-    email: string ="";
-    password: string ="";
+
+    tempUser = new User();
     loggedin: boolean = false;
 
     users: User []= [];
@@ -22,15 +23,15 @@ export class LoginComponent {
     constructor(private _userService: UserService,
                 private router: Router){}
 
-  loginuser(){
-    this._userService.login(this.email,this.password).subscribe(data=> {
-      if(data == User) {
-        this.loggedin = true;
-        this.router.navigate(['/home']);
-      }
-      else {
-        alert("Invalid email or password");
-      }
-  });
+  loginUser(){
+    this._userService.login(this.tempUser.email,this.tempUser.password).subscribe((response) =>{
+      console.log(this.tempUser.email,this.tempUser.password);
+      alert(this.tempUser.email)
+      alert(this.tempUser.password)
+      console.log(response);
+      alert(response);
+    })
   }
+
+
 }
