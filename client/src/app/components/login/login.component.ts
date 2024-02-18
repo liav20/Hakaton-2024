@@ -1,14 +1,13 @@
 import { Component } from '@angular/core';
 import { UserService } from '../../services/user.service';
-import User from '../../models/user';
-import { error } from 'console';
+import User from '../../models/user'
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [],
+  imports: [FormsModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
@@ -25,11 +24,16 @@ export class LoginComponent {
 
   loginUser(){
     this._userService.login(this.tempUser.email,this.tempUser.password).subscribe((response) =>{
-      console.log(this.tempUser.email,this.tempUser.password);
-      alert(this.tempUser.email)
-      alert(this.tempUser.password)
-      console.log(response);
-      alert(response);
+      if (response.hasOwnProperty('_id')) {
+        alert(this.tempUser.email)
+        alert(this.tempUser.password)
+        console.log(response);
+        alert(response);
+        //this.router.navigate(['/home']);
+      }
+      else {
+        alert(response);
+      }
     })
   }
 

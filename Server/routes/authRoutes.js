@@ -27,12 +27,12 @@ router.post('/signIn', async (req, res) => {
     console.log(email + '+' + password);
     const user = await User.findOne({email:email});
     if(!user){
-        return res.json('no user found')
+        return res.status(401).json('no user found')
     }
     if(user.password!==password){
-        return res.json('wrong password')
+        return res.status(301).json('wrong password')
     }
-    return res.json(user);
+    return res.status(200).json(user);
 });
 
 router.get('/', async (req, res) => {
