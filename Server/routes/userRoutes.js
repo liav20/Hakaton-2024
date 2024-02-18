@@ -44,9 +44,14 @@ router.get('/getGames/:id', async (req, res) => {
     }
 });
 
-router.get('/getInfo/:id', (req, res) => {
-    console.log('hellos from friend');
-    // Logic to fetch users from the database
+router.get('/getInfo/:id',async (req, res) => {
+    const id = req.params.id;
+    console.log('id',id);
+    const user = await User.findById(id);
+    if(!user){
+        return res.json('error no user with that id found')
+    }
+    return res.json(user);
 });
 
 router.post('/addFriend/:id', async (req, res) => {
