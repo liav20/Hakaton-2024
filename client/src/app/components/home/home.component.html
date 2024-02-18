@@ -26,9 +26,9 @@
         <div class = "player-name">{{playerName}}</div>
         
         <app-setup-game #teamSetupModal></app-setup-game>
-        <button class="btn start-game" (click)="teamSetupModal.showModal()">Start Game</button>
-        <app-join-game #teamJoinModal></app-join-game>
-        <button class="btn join-game" (click)="teamJoinModal.showModal()">Join game</button>
+        <button class="btn start-game" (click)="teamSetupModal.showModal()">Start Game
+        </button>
+        <button class="btn join-game" (click)="onJoinGameClick()">Join game</button>
       </div>
     </div>
   </div>

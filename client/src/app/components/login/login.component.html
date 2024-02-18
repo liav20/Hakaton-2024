@@ -1,29 +1,23 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Login Form</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
-</head>
-<body>
+<div class="grid-container">
   <div class="background-image">
     <div class="overlay">
-      <div class="container">
-        <!-- Login Form -->
-        <div class="form login">
-          <h1>Login</h1>
-          <form action="#" method="post">
-            <input type="email" placeholder="Enter your email" required>
-            <input type="password" placeholder="Enter your password" required>
-            <a href="#">Forgot password?</a>
-            <input type="submit" class="button" value="Login">
-            <p>Not registered yet? <a routerLink="/register">Click here!</a></p>
-          </form>
+      <div class="background-image">
+        <div class="overlay">
+          <div class="container">
+            <!-- Login Form -->
+            <div class="form login">
+              <h1>Login</h1>
+              <form action="#" method="post">
+                <input type="email" placeholder="Enter your email" required>
+                <input type="password" placeholder="Enter your password" required>
+                <a href="#">Forgot password?</a>
+                <input type="submit" (click)="loginuser()" class="button" value="Login">
+                <p>Not registered yet? <a href="/register">Click here!</a></p>
+              </form>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </div>
-</body>
-</html>
+</div>

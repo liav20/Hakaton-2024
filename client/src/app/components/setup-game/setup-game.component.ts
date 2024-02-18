@@ -1,6 +1,9 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
+import game from '../../models/game';
+import { GameService } from '../../services/game.service';
 
 @Component({
   selector: 'app-setup-game',
@@ -11,6 +14,11 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './setup-game.component.css'
 })
 export class SetupGameComponent {
+games:game []=[];
+  constructor(
+    private router: Router){
+
+    } 
   isVisible = false;
   numTeams = 2;
   playersPerTeam = 3;
@@ -40,5 +48,6 @@ export class SetupGameComponent {
   confirmSetup(): void {
     console.log(`Number of Teams: ${this.numTeams}, Players per Team: ${this.playersPerTeam}`);
     this.hideModal();
+    this.router.navigate(['/host'])
   }
 }

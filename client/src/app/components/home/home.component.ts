@@ -1,19 +1,20 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { SetupGameComponent } from '../setup-game/setup-game.component';
-import { JoinGameComponent } from '../join-game/join-game.component';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule,
-            SetupGameComponent,
-            JoinGameComponent],
+  imports: [CommonModule,SetupGameComponent,],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
 export class HomeComponent {
+  constructor() {}
+
+ 
   averageRating: number = 45;
   avatars = [
       'assets/avatars/avatar1.png',
@@ -29,12 +30,9 @@ export class HomeComponent {
     this.selectedAvatar = avatar;
   }
 
-  
-  onButtonClick(){
-    alert("Going to start...");
-  }
+
   onJoinGameClick(){
-    
+    alert("Join Game")
   }
 
   playerName: string = 'John Doe';
