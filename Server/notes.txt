@@ -1,0 +1,25 @@
+//extraction of a friends list of a user
+
+// Define route to retrieve a user's friends
+app.get('/user/:email/friends', (req, res) => {
+    const userEmail = req.params.email;
+
+    // Query the database to retrieve user's friends
+    db.get(`SELECT Friends FROM User WHERE Email = ?`, [userEmail], (err, row) => {
+        if (err) {
+            return res.status(500).json({ error: err.message });
+        }
+        if (!row) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+
+        const friends = JSON.parse(row.Friends); // Parse JSON string into array
+
+        res.json({ friends });
+    });
+});
+
+// Start the server
+app.listen(port, () => {
+    console.log(`Server is running on http://localhost:${port}`);
+});

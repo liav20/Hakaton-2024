@@ -8,7 +8,7 @@ import { User } from '../models/user';
 })
 export class UserService {
 
-  private url = 'http://localhost:3000/api/GetUser';  
+  private url = 'http://localhost:3000/api/GetUser/';  
   httpClient: any;
   constructor(httpClient : HttpClient) { }
 
@@ -16,11 +16,11 @@ export class UserService {
     return this.httpClient.get(this.url);
   }
   
-  getUser(id: number) {
-    return this.httpClient.get(this.url + '/' + id);
+  get(id: number) {
+    return this.httpClient.get(this.url + id);
   }
 
-  postUser(password: string, email: string, username: string) {
-    return this.httpClient.post('http://localhost:3000/api/auth/signUp', password, username, email);
+  post(user: User) {
+    return this.httpClient.post('http://localhost:3000/api/auth/signUp/', user);
   }
 }
