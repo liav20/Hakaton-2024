@@ -5,6 +5,8 @@ class User {
         public username: string = "",
         public score: number = 0,
         public _id: string = "",
+        public friends: [] = [],
+        public games: [] = []
     ){}
 }
 export default User;
