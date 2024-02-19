@@ -41,13 +41,18 @@ export class FriendManagerComponent {
     ) {}
 
   addFriend() {
-    console.log(this._currentUserId, this._friendEmail);
     this._userService.addFriend(this._currentUserId, this._friendEmail).subscribe((data: any) => {
 
     }, (error: any) => {
       console.log(error);
     });
   }
-  deleteFriend() {}
+  deleteFriend(email: string) {
+    this._userService.removeFriend(this._currentUserId, email).subscribe((data: any) => {
+      console.log(data);
+    }, (error: any) =>{
+      console.log(error);
+    })
+  }
 
 }
