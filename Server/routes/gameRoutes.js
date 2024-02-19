@@ -17,18 +17,27 @@ router.post('/createGame/:hostId', async (req, res) => {
         })
     res.json(game);
 });
+    // Get game ID by host ID
 router.get('/getGameId/:hostId', async (req, res) => {
-    const hostId = req.params.hostId
-    const date = new Date();
-    const game = await Game.create(
-        {
-            HostID: hostId,
-            Date: date,
-            LosingScore: 0,
-            WinningScore: 0,
-        })
-    res.json(game);
+    try {
+        const hostId = req.params.hostId;
+        // Find a game with the given HostID
+        const game = await Game.findOne({ HostID: hostId });
+
+        // If no game found, send a 404 response
+        if (!game) {
+            return res.status(404).json({ message: 'Game not found' });
+        }
+
+        // Respond with the MongoDB _id of the game
+        res.json({ gameId: game._id });
+    } catch (error) {
+        // Handle errors (e.g., invalid host ID format)
+        console.error('Error fetching game ID:', error);
+        res.status(500).json({ message: 'Server error' });
+    }
 });
+
 router.get('/getInfo/:id', (req, res) => {
     // Logic to create a new user in the database
     res.json({ message: 'User created successfully' }); // Sample response

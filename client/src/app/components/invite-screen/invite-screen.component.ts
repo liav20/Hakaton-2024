@@ -1,47 +1,56 @@
-import { Component ,Input,OnInit} from '@angular/core';
+import { Component ,EventEmitter,Input,OnDestroy,OnInit, Output} from '@angular/core';
 import { GameService } from '../../services/game.service';
 import { CommonModule } from '@angular/common';
 import { UserService } from '../../services/user.service';
 import User from '../../models/user';
+import { Subscription } from 'rxjs';
+import { HostScreenComponent } from '../host-screen/host-screen.component';
 
 @Component({
   selector: 'app-invite-screen',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule,HostScreenComponent],
   templateUrl: './invite-screen.component.html',
   styleUrl: './invite-screen.component.css'
 })
-export class InviteScreenComponent  {
+export class InviteScreenComponent implements OnInit,OnDestroy {
   // friendsList: any[] = [];
   // isVisible: boolean = false;
   @Input() HostID: number | undefined;
-
+  private subscriptions = new Subscription();
   gameId: string | undefined ;
-
+  isVisable: boolean = false
   user : User | undefined;
+  @Output() close = new EventEmitter<void>();
 
   constructor(private _gameservice: GameService, 
               private _userservice: UserService) { }
 
-  //  ngOnInit(): void {
-  //    this._gameservice.postGameCreate('65d1de15e914c3271131dd4e').subscribe(data => {
-  //      let temp = JSON.stringify(data);
-  //      let temp2 = JSON.parse(temp);
-  //      this.gameId = temp2._id;
-  //    });
-  //   }
+  closeInvite() {
+ this.close.emit();
+}
+
+
   ngOnInit() {
-    this._userservice.currentUser.subscribe(user => {
-      if (user) {
-        this.user = user;
-        console.log(this.user._id);
-      
-      this._gameservice.getGameId(this.user._id.toString()).subscribe(data => {
-             let temp = JSON.stringify(data);
-             let temp2 = JSON.parse(temp);
-             this.gameId = temp2._id;
-           });
-    }})};
+    this.subscriptions.add(
+      this._userservice.currentUser.subscribe(user => {
+        if (user) {
+          this.user = user;
+          console.log(this.user._id);
+          if (this.user._id) {
+            this._gameservice.getGameId(this.user._id.toString()).subscribe(data => {
+              this.gameId = data.gameId; // Assuming the response structure { gameId: string }
+            }, error => console.error('Error fetching game ID:', error));
+          }
+        }
+      }, error => console.error('Error fetching user:', error))
+    );
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.unsubscribe();
+  }
+
   
 
      copyGameIdToClipboard(): void {
@@ -58,12 +67,12 @@ export class InviteScreenComponent  {
   //   });
   // }
 
-  // openInviteScreen(): void {
-  //   this.isVisible = true;
-  // }
+  openInviteScreen(): void {
+    this.isVisable = true;
+  }
 
-  // closeInviteScreen(): void {
-  //   this.isVisible = false;
-  // }
+  closeInviteScreen(): void {
+    this.isVisable = false;
+  }
  
-}
+  }

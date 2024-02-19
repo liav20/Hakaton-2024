@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { LobbyService } from '../../services/lobby.service';
 
 @Component({
   selector: 'app-join-game',
@@ -12,8 +13,11 @@ import { CommonModule } from '@angular/common';
 })
 export class JoinGameComponent {
   isVisible = false;
-
+  gameId: string = '';
+  userId: string = 'USER_ID_HERE'; 
   link: string = "";
+
+    constructor(private lobbyservice: LobbyService){}
 
   showModal(): void {
     this.isVisible = true;
@@ -37,8 +41,21 @@ export class JoinGameComponent {
       this.isVisible = false;
     }, 400); // Match the timeout to the CSS transition duration
   }
-  confirmJoin(): void {
-      console.log('you joined the game via link: ' + this.link);
-      this.hideModal();
+  confirmJoin(): void{
+      if (!this.gameId) {
+        alert('Please enter a game ID.');
+        return;
+      }
+  
+      this.lobbyservice.joinGame(this.gameId, this.userId).subscribe({
+        next: (response) => {
+          console.log('Joined game successfully', response);
+          // Here you can redirect the user to the lobby or show a success message
+        },
+        error: (error) => {
+          console.error('Error joining game:', error);
+          // Handle error (show message to user, etc.)
+        }
+      });
+    }
   }
-}
