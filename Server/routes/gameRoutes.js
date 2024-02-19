@@ -97,8 +97,8 @@ router.put('/EndGame/:id', async (req, res) => {
 
     try {
         // Save the updated game to the database
-        const updatedGame = await game.save();
-        res.status(200).json({ message: "Scores and game properties updated successfully", updatedGame });
+        await game.save();
+        res.status(200).json({ message: "Scores and game properties updated successfully"});
     } catch (error) {
         res.status(500).json({ error: "Error updating game properties", details: error.message });
     }
@@ -108,7 +108,7 @@ router.put('/EndGame/:id', async (req, res) => {
 // Function to retrieve a game by its ID
 async function getGameById(gameId) {
     try {
-        const game = await Game.findById(gameId).lean().exec();
+        const game = await Game.findById(gameId).exec();
         return game;
     } catch (error) {
         throw new Error("Error fetching game by ID: " + error.message);
