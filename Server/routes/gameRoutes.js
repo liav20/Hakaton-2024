@@ -17,26 +17,6 @@ router.post('/createGame/:hostId', async (req, res) => {
         })
     res.json(game);
 });
-// Get game ID by host ID
-router.get('/getGameId/:hostId', async (req, res) => {
-    try {
-        const hostId = req.params.hostId;
-        // Find a game with the given HostID
-        const game = await Game.findOne({ HostID: hostId });
-
-        // If no game found, send a 404 response
-        if (!game) {
-            return res.status(404).json({ message: 'Game not found' });
-        }
-
-        // Respond with the MongoDB _id of the game
-        res.json({ gameId: game._id });
-    } catch (error) {
-        // Handle errors (e.g., invalid host ID format)
-        console.error('Error fetching game ID:', error);
-        res.status(500).json({ message: 'Server error' });
-    }
-});
 
 router.get('/getInfo/:id', (req, res) => {
     // Logic to create a new user in the database
@@ -52,30 +32,15 @@ router.post('/matchMaking', async (req, res) => {
     function createBalancedTeams(players, numTeams) {
         // Sort players by score in descending order
         players.sort((a, b) => b.score - a.score);
-    
+
         const teams = Array.from({ length: numTeams }, () => []);
         const totalScores = Array(numTeams).fill(0);
-    
-        // Calculate the number of players per team
-        const playersPerTeam = Math.ceil(players.length / numTeams);
-    
-        // Divide players into chunks
-        let chunkIndex = 0;
-        for (let i = 0; i < players.length; i += playersPerTeam) {
-            const chunk = players.slice(i, i + playersPerTeam);
-    
-            // Assign the chunk to the team with the lowest total score
-            for (const player of chunk) {
-                let minScoreIndex = 0;
-                for (let j = 1; j < numTeams; j++) {
-                    if (totalScores[j] < totalScores[minScoreIndex]) {
-                        minScoreIndex = j;
-                    }
-                }
-                teams[minScoreIndex].push(player);
-                totalScores[minScoreIndex] += player.score;
-            }
-            chunkIndex++;
+
+        // Assign players to teams while maintaining balance
+        for (let i = 0; i < players.length; i++) {
+            const teamIndex = i % numTeams;
+            teams[teamIndex].push(players[i]);
+            totalScores[teamIndex] += players[i].score;
         }
         return { teams, totalScores };
     }
@@ -83,29 +48,28 @@ router.post('/matchMaking', async (req, res) => {
     for (let i = 0; i < teams.length; i++) {
         console.log(`Team ${i + 1}:`, teams[i], 'Total Score:', totalScores[i]);
     }
-    return res.json({teams,totalScores})
 
 });
 
 router.put('/EndGame/:id', async (req, res) => {
     const gameId = req.params.id; // Assuming gameId is sent in the request body
 
-    // Retrieve user IDs from the game object
+    // Retrieve user IDs, scores, and game properties from the request body
     let winningTeamUserIds = req.body.WinningTeam;
+    let losingTeamUserIds = req.body.LosingTeam;
+    let scorersIds = req.body.Scorers;
+    let losingScore = req.body.LosingScore;
+    let winningScore = req.body.WinningScore;
 
     // Check if winningTeamUserIds is an array, if not convert it to an array
     if (!Array.isArray(winningTeamUserIds)) {
         winningTeamUserIds = [winningTeamUserIds];
     }
 
-    let losingTeamUserIds = req.body.LosingTeam;
-
     // Check if losingTeamUserIds is an array, if not convert it to an array
     if (!Array.isArray(losingTeamUserIds)) {
         losingTeamUserIds = [losingTeamUserIds];
     }
-
-    let scorersIds = req.body.Scorers;
 
     // Check if scorersIds is an array, if not convert it to an array
     if (!Array.isArray(scorersIds)) {
@@ -118,22 +82,33 @@ router.put('/EndGame/:id', async (req, res) => {
     if (!game) {
         return res.status(404).json({ error: "Game not found" });
     }
-    
-    console.log(winningTeamUserIds, losingTeamUserIds, scorersIds);
 
     // Update scores for winning team, losing team, and scorers
-    await updateScores(winningTeamUserIds, 5); // Increase score by 5 for winning team
-    await updateScores(losingTeamUserIds, -5);  // Decrease score by 5 for losing team
-    await updateScores(scorersIds, 2);         // Increase score by 2 for each goal
+    await updateScores(winningTeamUserIds, 5); // Decrease score by 3 for winning team
+    await updateScores(losingTeamUserIds, -5);  // Decrease score by 3 for losing team
+    await updateScores(scorersIds, 2);         // Increase score by 5 for scorers
 
-    // Send a success response
-    res.status(200).json({ message: "Scores updated successfully" });
+    // Update game properties
+    game.WinningTeam = winningTeamUserIds;
+    game.LosingTeam = losingTeamUserIds;
+    game.Scorers = scorersIds;
+    game.WinningScore = winningScore;
+    game.LosingScore = losingScore;
+
+    try {
+        // Save the updated game to the database
+        await game.save();
+        res.status(200).json({ message: "Scores and game properties updated successfully"});
+    } catch (error) {
+        res.status(500).json({ error: "Error updating game properties", details: error.message });
+    }
 });
+
 
 // Function to retrieve a game by its ID
 async function getGameById(gameId) {
     try {
-        const game = await Game.findById(gameId).lean().exec();
+        const game = await Game.findById(gameId).exec();
         return game;
     } catch (error) {
         throw new Error("Error fetching game by ID: " + error.message);
@@ -175,5 +150,8 @@ async function updateScores(userIds, scoreChange) {
         throw new Error("Error updating scores");
     }
 }
+
+
+
 
 module.exports = router;

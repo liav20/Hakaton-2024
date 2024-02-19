@@ -4,6 +4,7 @@ const userRoute = require('./routes/userRoutes');
 const authRoute = require('./routes/authRoutes');
 const gameRoute = require('./routes/gameRoutes');
 const db = require('./services/db')
+
 const app = express();
 
 
