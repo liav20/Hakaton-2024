@@ -17,7 +17,7 @@ router.post('/createGame/:hostId', async (req, res) => {
         })
     res.json(game);
 });
-    // Get game ID by host ID
+// Get game ID by host ID
 router.get('/getGameId/:hostId', async (req, res) => {
     try {
         const hostId = req.params.hostId;
@@ -52,15 +52,30 @@ router.post('/matchMaking', async (req, res) => {
     function createBalancedTeams(players, numTeams) {
         // Sort players by score in descending order
         players.sort((a, b) => b.score - a.score);
-
+    
         const teams = Array.from({ length: numTeams }, () => []);
         const totalScores = Array(numTeams).fill(0);
-
-        // Assign players to teams while maintaining balance
-        for (let i = 0; i < players.length; i++) {
-            const teamIndex = i % numTeams;
-            teams[teamIndex].push(players[i]);
-            totalScores[teamIndex] += players[i].score;
+    
+        // Calculate the number of players per team
+        const playersPerTeam = Math.ceil(players.length / numTeams);
+    
+        // Divide players into chunks
+        let chunkIndex = 0;
+        for (let i = 0; i < players.length; i += playersPerTeam) {
+            const chunk = players.slice(i, i + playersPerTeam);
+    
+            // Assign the chunk to the team with the lowest total score
+            for (const player of chunk) {
+                let minScoreIndex = 0;
+                for (let j = 1; j < numTeams; j++) {
+                    if (totalScores[j] < totalScores[minScoreIndex]) {
+                        minScoreIndex = j;
+                    }
+                }
+                teams[minScoreIndex].push(player);
+                totalScores[minScoreIndex] += player.score;
+            }
+            chunkIndex++;
         }
         return { teams, totalScores };
     }
@@ -68,6 +83,7 @@ router.post('/matchMaking', async (req, res) => {
     for (let i = 0; i < teams.length; i++) {
         console.log(`Team ${i + 1}:`, teams[i], 'Total Score:', totalScores[i]);
     }
+    return res.json({teams,totalScores})
 
 });
 // router.get('/EndGame', (req, res) => {
