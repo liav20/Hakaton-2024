@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const dataSchema = new mongoose.Schema({
+const dataScheme = new mongoose.Schema({
     HostID: {
         require: false,
         type: String
@@ -20,6 +20,10 @@ const dataSchema = new mongoose.Schema({
     LosingScore: {
         require: false,
         type: Number
+    },
+    Scorers: {
+        require: false,
+        type: Array
     },
     Date: {
         require: false,
