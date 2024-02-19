@@ -24,10 +24,10 @@ export class GameService {
     return this.http.post('http://localhost:3000/api/game/creategame/' + hostID.toString(), hostID);
   }
 
-  postEndGame(gameID: string, game: game){
-    return this.http.post('http://localhost:3000/api/game/EndGame/' + gameID.toString(), {game});
+  postEndGame(gameID: string, body: any){
+    return this.http.post('http://localhost:3000/api/game/EndGame/' + gameID.toString(), body);
   }
-  
+
   setGameSetup(numTeams: number, playersPerTeam: number) {
     this.groupNumber = numTeams;
     this.playersPerTeam = playersPerTeam;
