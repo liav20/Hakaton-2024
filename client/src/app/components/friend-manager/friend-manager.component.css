@@ -1,3 +1,37 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+.background-image {
+  background-image: url('/assets/image/FootballPitch.jpg');
+  height: 100vh;
+  background-size: contain; /* Ensures the entire image is visible */
+  background-position: center; /* Centers the image in the available area */
+  background-repeat: no-repeat; /* Prevents the image from repeating */
+  width: 100vw; /* Ensures the background spans the full viewport width */
+}
+.overlay {
+  position: relative; /* Keep this to position children absolutely within */
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center-align children horizontally */
+  justify-content: center; /* Center-align vertically */
+  height: 100vh;
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+body{
+  min-height: 100vh;
+  width: 100%;
+}
 
 .friend-manager {
     max-width: 600px;

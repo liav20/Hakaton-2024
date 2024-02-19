@@ -12,7 +12,10 @@
       <h3>Friend List</h3>
       <ul>
         <li *ngFor="let emailAddress of _friendList">
-          {{emailAddress}}
+          <span>
+              <span>{{emailAddress}}</span>
+            <button (click) = "deleteFriend(emailAddress)">Remove</button>
+          </span>
           <!-- <span>{{ friend.email }}</span> -->
           <!-- <button (click)="deleteFriend()">Delete</button> -->
         </li>

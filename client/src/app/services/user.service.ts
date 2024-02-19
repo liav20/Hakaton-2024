@@ -64,11 +64,17 @@ export class UserService {
   }
 
   addFriend(id: string, email: string) {
-    return this.httpClient.post('http://localhost:3000/api/user/addfriend/' + this.currentUserSubject.value?._id, {email});
+    return this.httpClient.post('http://localhost:3000/api/user/addfriend/' + id, {email});
   }
 
   getFriendList(id: string) {
     return this.httpClient.get<string[]>('http://localhost:3000/api/user/getFriends/' + id);
   }
+
+  removeFriend(id: string, email: string) {
+    return this.httpClient.delete('http://localhost:3000/api/user/removeFriend/' + id, {params: {email}});
+
+  }
+
 
 }
