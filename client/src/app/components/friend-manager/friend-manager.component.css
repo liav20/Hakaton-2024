@@ -1,0 +1,29 @@
+
+.friend-manager {
+    max-width: 600px;
+    margin: auto;
+    padding: 20px;
+  }
+  
+  .add-friend-form {
+    margin-bottom: 20px;
+  }
+  
+  .friend-list {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .friend-list ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .friend-list li {
+    margin-bottom: 10px;
+  }
+  
+  .search-friend input {
+    margin-right: 10px;
+  }
