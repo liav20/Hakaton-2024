@@ -1,5 +1,7 @@
-<div *ngIf="gameId">
-    <p>Game ID: {{ gameId }}</p>
-    <button (click)="copyGameIdToClipboard()" ></button>
+<div class="invite-container">
+  <button (click)="closeInvite()" class="close-btn">X</button>
+  <div class="game-id-display" *ngIf="gameId">
+      <p>Game ID: <span class="game-id">{{ gameId }}</span></p>
+      <button (click)="copyGameIdToClipboard()" class="copy-btn">Copy Game ID</button>
   </div>
-  
+</div>

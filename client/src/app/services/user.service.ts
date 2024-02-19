@@ -26,7 +26,7 @@ export class UserService {
     return this.httpClient.get(this.url);
   }
   
-  getUser(id: number) {
+  getUser(id: string) {
     return this.httpClient.get(`${this.url}/${id}`);
   }
 
@@ -62,4 +62,19 @@ export class UserService {
   getCurrentUser(): User | null {
     return this.currentUserSubject.value;
   }
+
+  addFriend(id: string, email: string) {
+    return this.httpClient.post('http://localhost:3000/api/user/addfriend/' + id, {email});
+  }
+
+  getFriendList(id: string) {
+    return this.httpClient.get<string[]>('http://localhost:3000/api/user/getFriends/' + id);
+  }
+
+  removeFriend(id: string, email: string) {
+    return this.httpClient.delete('http://localhost:3000/api/user/removeFriend/' + id, {params: {email}});
+
+  }
+
+
 }

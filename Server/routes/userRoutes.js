@@ -155,7 +155,7 @@ router.delete('/removeFriend/:id', async (req, res) => {
         // Check if the friend's email is in the user's friends array
         const friendIndex = user.friends.indexOf(friendUser.email);
         if (friendIndex === -1) {
-            return res.status(400).json({ message: 'Friend not found in user\'s friends list' });
+            return res.status(400).json({ message: "Friend not found in user's friends list" });
         }
 
         // Remove friend's email from user's friends array

@@ -1,0 +1,30 @@
+<div class="friend-manager">
+    <h2>Friend Manager</h2>
+  
+    <!-- Add Friend Form -->
+    <div class="add-friend-form">
+      <input type="text" [(ngModel)]="_friendEmail" placeholder="Enter friend's email">
+      <button (click)="addFriend()">Add Friend</button>
+    </div>
+  
+    <!-- Friend List -->
+    <div class="friend-list">
+      <h3>Friend List</h3>
+      <ul>
+        <li *ngFor="let emailAddress of _friendList">
+          <span>
+              <span>{{emailAddress}}</span>
+            <button (click) = "deleteFriend(emailAddress)">Remove</button>
+          </span>
+          <!-- <span>{{ friend.email }}</span> -->
+          <!-- <button (click)="deleteFriend()">Delete</button> -->
+        </li>
+      </ul>
+    </div>
+  
+    <!-- Search Friend -->
+    <div class="search-friend">
+      <input type="text" placeholder="Search by name/email">
+      <button>Search</button>
+    </div>
+  </div>

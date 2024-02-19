@@ -2,12 +2,10 @@
     <div class="background-image">
       <div class="overlay">
         <div class="button-container">
-            <!-- host.component.html -->
-
-            <!-- <button (click)="inviteScreenComponent.openInviteScreen()">Invite</button> -->
-            <!-- <app-invite-screen #inviteScreenComponent></app-invite-screen> -->
-            <button id="inviteScreen" (click) = "func()">Invite</button>
+            <div *ngIf="showInviteScreen" class="backdrop" (click)="closeInviteScreen()"></div>
+            <button (click)="openInviteScreen()">Invite</button>
             <button id="matchmakingButton">Matchmaking</button>
+            <app-invite-screen *ngIf="showInviteScreen" (close)="closeInviteScreen()"></app-invite-screen>
         </div>
     </div>
     </div>

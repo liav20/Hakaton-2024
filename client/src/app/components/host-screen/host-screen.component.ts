@@ -16,10 +16,16 @@ import { Router } from '@angular/router';
 export class HostScreenComponent {
   constructor(private _gameService: GameService,
     private router: Router){}
-
+    showInviteScreen: boolean = false;
   @Input() HostID: number | undefined;
 
-  func(){
-    this.router.navigate(['/invtie']);
-  } 
+  openInviteScreen() {
+    this.showInviteScreen = true;
+  }
+
+  // Method to hide the invite screen
+  closeInviteScreen() {
+    this.showInviteScreen = false;
+  }
+  
 }
