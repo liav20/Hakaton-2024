@@ -134,15 +134,17 @@ router.post('/addFriend/:id', async (req, res) => {
 });
 
 router.delete('/removeFriend/:id', async (req, res) => {
-    // Logic to create a new user in the database
+    // Logic to remove a friend from the user's friends list
     const userID = req.params.id;
-    const friendEmail = req.body.email;
-    try{
-        const user  = await User.findById(userID);
+    const friendEmail = req.query.email; // Extract friend's email from query parameter
+
+    try {
+        const user = await User.findById(userID);
 
         if (!user) {
             return res.status(404).json({ message: 'User not found' });
         }
+
         // Find the friend user by their email
         const friendUser = await User.findOne({ email: friendEmail });
 
@@ -150,25 +152,23 @@ router.delete('/removeFriend/:id', async (req, res) => {
             return res.status(404).json({ message: 'Friend not found' });
         }
 
-        
-        // Check if the friendID is in the user's friends array
+        // Check if the friend's email is in the user's friends array
         const friendIndex = user.friends.indexOf(friendUser.email);
         if (friendIndex === -1) {
             return res.status(400).json({ message: 'Friend not found in user\'s friends list' });
         }
 
-        // Remove friend's ID from user's friends array
-        user.friends = await user.friends.filter(email => email.toString() !== friendUser.email.toString());
+        // Remove friend's email from user's friends array
+        user.friends = user.friends.filter(email => email.toString() !== friendUser.email.toString());
 
-        // Remove user's ID from friend's friends array
-        friendUser.friends = await friendUser.friends.filter(email => email.toString() !== user.email.toString());
+        // Remove user's email from friend's friends array
+        friendUser.friends = friendUser.friends.filter(email => email.toString() !== user.email.toString());
 
         // Save both updated documents
         await Promise.all([user.save(), friendUser.save()]);
 
         res.json({ message: 'Friend removed successfully' });
-    }
-    catch(error){
+    } catch (error) {
         console.error('Error:', error);
 
         if (error instanceof Error) {
@@ -183,5 +183,6 @@ router.delete('/removeFriend/:id', async (req, res) => {
         }
     }
 });
+
 
 module.exports = router;

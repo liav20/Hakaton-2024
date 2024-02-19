@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const dataSchema = new mongoose.Schema({
+const dataScheme = new mongoose.Schema({
     HostID: {
         require: false,
         type: String
@@ -21,10 +21,14 @@ const dataSchema = new mongoose.Schema({
         require: false,
         type: Number
     },
+    Scorers: {
+        require: false,
+        type: Array
+    },
     Date: {
         require: false,
         type: Date
     }
 })
 
-module.exports = mongoose.model('Game', dataSchema);
+module.exports = mongoose.model('Game', dataScheme);

@@ -3,14 +3,10 @@ const userRoute = require('./routes/userRoutes');
 const authRoute = require('./routes/authRoutes');
 const gameRoute = require('./routes/gameRoutes');
 const db = require('./services/db')
-const cors = require('cors');
-
-
 const app = express();
 
 
 app.use(express.json());
-app.use(cors());
 // Use routes
 app.use('/api/user', userRoute);
 app.use('/api/auth', authRoute);
