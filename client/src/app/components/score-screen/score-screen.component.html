@@ -1,1 +1,30 @@
+
 <app-timer></app-timer>
+<div>
+    <div class="container">
+        <div class="team-container">
+            <div class="team">
+                <div class="team-info">
+                  <span class="team-name">{{teamA}}</span>
+                </div>
+                <div class="goal-control">
+                  <button (click)="decreaseGoal(teamA)">-</button>
+                  <input type="number" [(ngModel)]="teamAGoals" min="0" />
+                  <button (click)="increaseGoal(teamA)">+</button>
+                </div>
+              </div>
+        </div>
+        <div class="team-container">
+            <div class="team">
+                <div class="team-info">
+                  <span class="team-name">{{teamB}}</span>
+                </div>
+                <div class="goal-control">
+                  <button (click)="decreaseGoal(teamB)">-</button>
+                  <input type="number" [(ngModel)]="teamBGoals" min="0" />
+                  <button (click)="increaseGoal(teamB)">+</button>
+                </div>
+              </div>
+        </div>
+      </div>
+</div>
