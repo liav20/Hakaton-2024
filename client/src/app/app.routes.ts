@@ -6,6 +6,7 @@ import { HostScreenComponent } from './components/host-screen/host-screen.compon
 import { ScoreScreenComponent } from './components/score-screen/score-screen.component';
 import { InviteScreenComponent } from './components/invite-screen/invite-screen.component';
 import { LobbyCreateComponent } from './components/lobby-create/lobby-create.component';
+import { FriendManagerComponent } from './components/friend-manager/friend-manager.component';
 
 
 export const routes: Routes = [
@@ -16,5 +17,6 @@ export const routes: Routes = [
     {path: 'host', component: HostScreenComponent},
     {path: 'score',component: ScoreScreenComponent},
     {path: 'invite', component: InviteScreenComponent},
-    {path: 'lobby', component: LobbyCreateComponent}
+    {path: 'lobby', component: LobbyCreateComponent},
+    {path: 'friends', component: FriendManagerComponent}
 ];

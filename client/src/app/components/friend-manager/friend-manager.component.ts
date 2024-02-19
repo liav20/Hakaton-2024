@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { UserService } from '../../services/user.service';
 import { Router } from 'express';
 import { ActivatedRoute } from '@angular/router';
+import User from '../../models/user';
 
 @Component({
   selector: 'app-friend-manager',
@@ -12,11 +13,16 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class FriendManagerComponent {
 
-  private _currentIserId: string = "";
+  private _currentUserId: string = "";
   private _friendEmail: string = "";
+  private _currentUser: User | null = null;
+  private _friendList: [] = [];
 
   ngOnInit() {
-    this._currentIserId = this._userService.getCurrentUser()?._id as string;
+    this._currentUser = this._userService.getCurrentUser() as User;
+    this._currentUserId = this._currentUser._id;
+    console.log(this._currentUser);
+    //this._friendList = this._currentUser.friends;
   }
 
   
@@ -25,7 +31,7 @@ export class FriendManagerComponent {
     private route:ActivatedRoute) {}
 
   addFriend() {
-    this._userService.addFriend(this._currentIserId, this._friendEmail).subscribe((data: any) => {
+    this._userService.addFriend(this._currentUserId, this._friendEmail).subscribe((data: any) => {
 
     }, (error: any) => {
       console.log(error);
