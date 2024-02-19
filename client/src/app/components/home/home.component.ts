@@ -5,6 +5,7 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { JoinGameComponent } from '../join-game/join-game.component';
 import User from '../../models/user';
 import { UserService } from '../../services/user.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -18,7 +19,8 @@ export class HomeComponent {
 
   user: User | undefined;
 
-  constructor(private userService: UserService) {}
+  constructor(private userService: UserService,
+              private router: Router) {}
 
   ngOnInit() {
     this.userService.currentUser.subscribe(user => {
@@ -43,4 +45,9 @@ export class HomeComponent {
     this.selectedAvatar = avatar;
   }
   playerName: string = 'John Doe';
+
+
+  navigateToFriendManager() {
+    this.router.navigate(['/friend-manager']);
+  }
 }

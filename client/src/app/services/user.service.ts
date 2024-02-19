@@ -62,4 +62,9 @@ export class UserService {
   getCurrentUser(): User | null {
     return this.currentUserSubject.value;
   }
+
+  addFriend(id: string, email: string) {
+    return this.httpClient.post('http://localhost:3000/api/user/addfriend/' + id.toString(), email);
+  }
+
 }
