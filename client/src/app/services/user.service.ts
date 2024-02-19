@@ -26,8 +26,8 @@ export class UserService {
     return this.httpClient.get(this.url);
   }
   
-  getUser(id: number) {
-    return this.httpClient.get(`${this.url}/${id}`);
+  getUser(id: string) {
+    return this.httpClient.get<User>('http://localhost:3000/api/user/getInfo/'+ id);
   }
 
   postUser(user: User) {

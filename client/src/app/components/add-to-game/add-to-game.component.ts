@@ -30,7 +30,12 @@ export class AddToGameComponent implements OnInit {
     this.userService.currentUser.subscribe(user => {
       if (user) {
         this.user = user;
-        this.emails.add(user.email);
+        this.userService.getUser(this.user._id).subscribe(user => {
+          if (user) {
+            this.user = user;
+            this.emails.add(user.email);
+          }
+        })
       }
     });
     const setup = this._gameService.getGameSetup();
