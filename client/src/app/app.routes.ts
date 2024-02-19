@@ -6,6 +6,7 @@ import { HostScreenComponent } from './components/host-screen/host-screen.compon
 import { ScoreScreenComponent } from './components/score-screen/score-screen.component';
 import { InviteScreenComponent } from './components/invite-screen/invite-screen.component';
 import { LobbyCreateComponent } from './components/lobby-create/lobby-create.component';
+import { AddToGameComponent } from './components/add-to-game/add-to-game.component';
 import { FriendManagerComponent } from './components/friend-manager/friend-manager.component';
 
 
@@ -18,5 +19,6 @@ export const routes: Routes = [
     {path: 'score',component: ScoreScreenComponent},
     {path: 'invite', component: InviteScreenComponent},
     {path: 'lobby', component: LobbyCreateComponent},
-    {path: 'friends', component: FriendManagerComponent}
+    {path: 'addtogame',component: AddToGameComponent},
+    {path: 'friends',component: FriendManagerComponent},
 ];

@@ -2,11 +2,32 @@
     <div class="background-image">
       <div class="overlay">
         <div class="button-container">
-            <div *ngIf="showInviteScreen" class="backdrop" (click)="closeInviteScreen()"></div>
-            <button (click)="openInviteScreen()">Invite</button>
-            <button id="matchmakingButton">Matchmaking</button>
-            <app-invite-screen *ngIf="showInviteScreen" (close)="closeInviteScreen()"></app-invite-screen>
+          <!-- Backdrop for invite screen, appears when showInviteScreen is true -->
+          <div *ngIf="showInviteScreen" class="backdrop" (click)="closeInviteScreen()"></div>
+          
+          <!-- Button to open the invite screen -->
+          <button (click)="openInviteScreen()">Invite</button>
+          
+          <!-- Button for matchmaking (assuming functionality will be added later) -->
+
+          <button (click)="showAddToGame = !showAddToGame">Add Players</button>
+
+              <div *ngIf="showAddToGame" class="modal">
+        <app-add-to-game></app-add-to-game>
         </div>
+
+          
+          <!-- Conditional rendering of the invite screen component -->
+          <app-invite-screen *ngIf="showInviteScreen" (close)="closeInviteScreen()"></app-invite-screen>
+          
+          
+          <div>
+            <button class="info-button">
+                Total players : {{total}}
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
-    </div>
-</div>
+  </div>
+  

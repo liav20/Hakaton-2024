@@ -26,7 +26,7 @@ export class UserService {
     return this.httpClient.get(this.url);
   }
   
-  getUser(id: string) {
+  getUser(id: number) {
     return this.httpClient.get(`${this.url}/${id}`);
   }
 
@@ -62,7 +62,12 @@ export class UserService {
   getCurrentUser(): User | null {
     return this.currentUserSubject.value;
   }
-
+  getFriendDetailsById(friendId: string): Observable<User> {
+    return this.httpClient.get<User>(`${this.url}/friendDetails/${friendId}`);
+  }
+  getFriends(userId: string): Observable<any[]> {
+    return this.httpClient.get<any[]>(`${this.url}/getFriends/${userId}`);
+  }
   addFriend(id: string, email: string) {
     return this.httpClient.post('http://localhost:3000/api/user/addfriend/' + id, {email});
   }
@@ -70,11 +75,8 @@ export class UserService {
   getFriendList(id: string) {
     return this.httpClient.get<string[]>('http://localhost:3000/api/user/getFriends/' + id);
   }
-
   removeFriend(id: string, email: string) {
     return this.httpClient.delete('http://localhost:3000/api/user/removeFriend/' + id, {params: {email}});
 
   }
-
-
 }

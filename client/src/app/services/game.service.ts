@@ -7,6 +7,10 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class GameService {
+  groupNumber: number = 0;
+  playersPerTeam : number = 0;
+
+
   constructor(private http: HttpClient){}
   getGameId(hostID: string): Observable<any> {
     return this.http.get('http://localhost:3000/api/game/getGameId/' + hostID.toString()); // Adjust URL as needed
@@ -19,4 +23,21 @@ export class GameService {
   postGameCreate(hostID: string){
     return this.http.post('http://localhost:3000/api/game/creategame/' + hostID.toString(), hostID);
   }
+  setGameSetup(numTeams: number, playersPerTeam: number) {
+    this.groupNumber = numTeams;
+    this.playersPerTeam = playersPerTeam;
+  }
+
+  getGameSetup() {
+    return {
+      numTeams: this.groupNumber,
+      playersPerTeam: this.playersPerTeam,
+    };
+  }
+  sendInvites(groupNumber: number, emails: string[]): Observable<any> {
+    const payload = { groupNumber, emails };
+    console.log(payload);
+    return this.http.post(`http://localhost:3000/api/game/matchMaking`, payload); 
+  }
+  
 }

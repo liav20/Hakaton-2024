@@ -23,6 +23,7 @@ export class InviteScreenComponent implements OnInit,OnDestroy {
   user : User | undefined;
   @Output() close = new EventEmitter<void>();
 
+
   constructor(private _gameservice: GameService, 
               private _userservice: UserService) { }
 
@@ -45,6 +46,7 @@ export class InviteScreenComponent implements OnInit,OnDestroy {
         }
       }, error => console.error('Error fetching user:', error))
     );
+    
   }
 
   ngOnDestroy() {

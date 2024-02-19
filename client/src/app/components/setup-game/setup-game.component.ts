@@ -27,6 +27,7 @@ export class SetupGameComponent {
   isVisible = false;
   numTeams = 2;
   playersPerTeam = 3;
+  totalPlayers =  this.numTeams * this.playersPerTeam
 
   showModal(): void {
     this.isVisible = true;
@@ -56,6 +57,7 @@ export class SetupGameComponent {
     this._gameService.postGameCreate(this.HostID).subscribe((response: any) => {
       console.log(response);
     });
-    this.router.navigate(['/host'], this.HostID)
+    this._gameService.setGameSetup(this.numTeams, this.playersPerTeam);
+    this.router.navigate(['/host']);
   }
 }
