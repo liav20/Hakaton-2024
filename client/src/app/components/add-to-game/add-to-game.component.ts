@@ -58,16 +58,14 @@ export class AddToGameComponent implements OnInit {
     return this.emails.has(friendId);
   }
   navigateToHost(): void {
-    
+    this.router.navigate(['/host']);
   }
   sendInvite(): void {
     if (this.user) {
       // Convert Set to Array for invitedFriends
       const invitedFriendsArray = Array.from(this.emails);
-      this._gameService.sendInvites(this.groupNumber, invitedFriendsArray).subscribe(
-         (response) => {
-          console.log(response);
-          console.log('Invites sent successfully', response);
+      console.log(invitedFriendsArray);
+      this._gameService.sendInvites(this.groupNumber, invitedFriendsArray).subscribe(data =>{     
           this.navigateToHost();
         }
     )}
