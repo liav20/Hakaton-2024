@@ -54,21 +54,22 @@ router.post('/matchMaking', async (req, res) => {
 router.put('/EndGame/:id', async (req, res) => {
     const gameId = req.params.id; // Assuming gameId is sent in the request body
 
-    // Retrieve user IDs from the game object
+    // Retrieve user IDs, scores, and game properties from the request body
     let winningTeamUserIds = req.body.WinningTeam;
+    let losingTeamUserIds = req.body.LosingTeam;
+    let scorersIds = req.body.Scorers;
+    let losingScore = req.body.LosingScore;
+    let winningScore = req.body.WinningScore;
 
     // Check if winningTeamUserIds is an array, if not convert it to an array
     if (!Array.isArray(winningTeamUserIds)) {
         winningTeamUserIds = [winningTeamUserIds];
     }
-    let losingTeamUserIds = req.body.LosingTeam;
 
     // Check if losingTeamUserIds is an array, if not convert it to an array
     if (!Array.isArray(losingTeamUserIds)) {
         losingTeamUserIds = [losingTeamUserIds];
     }
-
-    let scorersIds = req.body.Scorers;
 
     // Check if scorersIds is an array, if not convert it to an array
     if (!Array.isArray(scorersIds)) {
@@ -81,17 +82,28 @@ router.put('/EndGame/:id', async (req, res) => {
     if (!game) {
         return res.status(404).json({ error: "Game not found" });
     }
-    
-    console.log(winningTeamUserIds, losingTeamUserIds, scorersIds);
 
     // Update scores for winning team, losing team, and scorers
     await updateScores(winningTeamUserIds, 5); // Decrease score by 3 for winning team
     await updateScores(losingTeamUserIds, -5);  // Decrease score by 3 for losing team
     await updateScores(scorersIds, 2);         // Increase score by 5 for scorers
 
-    // Send a success response
-    res.status(200).json({ message: "Scores updated successfully" });
+    // Update game properties
+    game.WinningTeam = winningTeamUserIds;
+    game.LosingTeam = losingTeamUserIds;
+    game.Scorers = scorersIds;
+    game.WinningScore = winningScore;
+    game.LosingScore = losingScore;
+
+    try {
+        // Save the updated game to the database
+        const updatedGame = await game.save();
+        res.status(200).json({ message: "Scores and game properties updated successfully", updatedGame });
+    } catch (error) {
+        res.status(500).json({ error: "Error updating game properties", details: error.message });
+    }
 });
+
 
 // Function to retrieve a game by its ID
 async function getGameById(gameId) {
