@@ -10,6 +10,7 @@ import { AddToGameComponent } from './components/add-to-game/add-to-game.compone
 import { FriendManagerComponent } from './components/friend-manager/friend-manager.component';
 
 
+
 export const routes: Routes = [
     {path: '', component: LoginComponent},
     {path: 'login', component: LoginComponent}, 
