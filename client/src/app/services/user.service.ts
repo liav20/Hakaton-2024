@@ -79,4 +79,19 @@ export class UserService {
     return this.httpClient.delete('http://localhost:3000/api/user/removeFriend/' + id, {params: {email}});
 
   }
+  private updateLocalUserWithNewFriend(newFriend: any): void {
+    // Retrieve the current user from localStorage
+    const currentUserJson = localStorage.getItem('currentUser');
+    if (currentUserJson) {
+      const currentUser: User = JSON.parse(currentUserJson);
+
+      // Add the new friend's email to the current user's friends list
+      // Ensure that you are handling the structure correctly,
+      // this might need to be adjusted based on how friends are stored
+      currentUser.friends.push(newFriend.email);
+
+      // Save the updated current user back to localStorage
+      localStorage.setItem('currentUser', JSON.stringify(currentUser));
+    }
+  }
 }

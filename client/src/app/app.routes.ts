@@ -9,6 +9,7 @@ import { LobbyCreateComponent } from './components/lobby-create/lobby-create.com
 import { AddToGameComponent } from './components/add-to-game/add-to-game.component';
 import { FriendManagerComponent } from './components/friend-manager/friend-manager.component';
 import { EndGameComponent } from './components/end-game/end-game.component';
+import { MatchScreenComponent } from './components/match-screen/match-screen.component';
 
 
 
@@ -18,10 +19,11 @@ export const routes: Routes = [
     {path: 'register', component: RegisterComponent},
     {path: 'home', component: HomeComponent},
     {path: 'host', component: HostScreenComponent},
-    {path: 'score',component: ScoreScreenComponent},
+    {path: 'scorescreen',component: ScoreScreenComponent},
     {path: 'invite', component: InviteScreenComponent},
     {path: 'lobby', component: LobbyCreateComponent},
     {path: 'addtogame',component: AddToGameComponent},
     {path: 'friends',component: FriendManagerComponent},
-    {path: 'endgame', component: EndGameComponent}
+    {path: 'endgame', component: EndGameComponent},
+    {path: 'match', component: MatchScreenComponent},
 ];
