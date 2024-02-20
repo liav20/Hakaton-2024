@@ -112,8 +112,9 @@ export class ScoreScreenComponent{
       scorers: this.Scorers
     }
     console.log(gamedata);
-    this.router.navigate(['/endgame'], {state: gamedata} );
-    
+    setTimeout(() =>{
+      this.router.navigate(['/endgame'], {state: gamedata} );
+    }, 3000)    
   }
 
   score(teamIndex: number, groupIndex: number) {
