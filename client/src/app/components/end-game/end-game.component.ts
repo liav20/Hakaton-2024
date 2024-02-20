@@ -19,7 +19,7 @@ export class EndGameComponent {
               private _userService: UserService,
               private router: Router) {}
   
-  private _gameId: string = "65d25eefd0f41e87a40a11ef";
+  private _gameId: string = "";
   private _winTeam: string [] = [];
   private _loseTeam: string [] = [];
   private _waitingTeams: string [] [] = [];
@@ -43,15 +43,15 @@ export class EndGameComponent {
       this._loseScore = navigation.extras.state['loseScore'];
       this._scorers = navigation.extras.state['scorers'];
     }
-    else{
-      let user1Id = '65d1de15e914c3271131dd4e'
-      let user2Id = '65d1e650e914c3271131dd59'
-      this._winTeam.push(user1Id);
-      this._loseTeam.push(user2Id);
-      this._scorers.push(user1Id, user2Id , user1Id);
-      this._winScore = 2
-      this._loseScore = 1
-    }
+    // else{
+    //   let user1Id = '65d1de15e914c3271131dd4e'
+    //   let user2Id = '65d1e650e914c3271131dd59'
+    //   this._winTeam.push(user1Id);
+    //   this._loseTeam.push(user2Id);
+    //   this._scorers.push(user1Id, user2Id , user1Id);
+    //   this._winScore = 2
+    //   this._loseScore = 1
+    // }
 
     this._winTeam.forEach(id => {
       this._userService.getUser(id).subscribe(user => {
