@@ -72,7 +72,7 @@
   /* Style for the change button */
   .selected-avatar-display button {
     position: absolute; /* Position the button independently */
-    top: 20px; /* Position at the top right corner */
+    top: 2px; /* Position at the top right corner */
     left: 50%; /* Adjust as needed */
     padding: 5px 10px; /* Smaller padding for a smaller button */
     font-size: 12px; /* Smaller font size */
@@ -116,6 +116,7 @@
     transition: transform 0.3s ease;
     margin: 2vh 0; /* Spacing */
     box-shadow: 0 2vw 4vw rgba(0, 0, 0, 0.2);
+    background-color: chocolate;
   }
   
   .btn.start-game {
@@ -141,12 +142,11 @@
       width: 80vw; 
       padding: 3vh; 
       font-size: 4vw; 
-   
     }
   }
   .player-name {
     margin-top: 20px; /* Adjust based on your layout and spacing needs */
-    font-size: calc(2vw + 20px); /* Adjust size as needed */
+    font-size: calc(2vw + 22px); /* Adjust size as needed */
     font-weight: bold; /* Optional: if you want the name to stand out */
     color: #333; /* Adjust color as needed */
     text-align: center; /* Ensure the name is centered under the rating circle */
