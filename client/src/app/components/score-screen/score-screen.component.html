@@ -1,1 +1,30 @@
-<app-timer></app-timer>
+<div class="main-container">
+  <div class="main-container">
+      <div class="timer-container">
+        <app-timer></app-timer>
+      </div>
+   <div class="spacer"></div>
+   <div class="result-container">
+      <button class="score-button" (click)="increaseScore(true)">+</button>
+      <div class="result-screen">{{ leftScore }}:{{ rightScore }}</div>
+      <button class="score-button" (click)="increaseScore(false)">+</button>
+    </div>
+
+    <div class="game-container">
+      <div class="group" *ngFor="let group of teams; let groupIndex = index">
+        <h2>Group {{groupIndex + 1}}</h2>
+        <div *ngFor="let team of group; let teamIndex = index" class="team-entry">
+          <span class="team-name">{{team.username}}</span>
+          <!-- Update condition to enable/disable based on groupIndex and scored flags -->
+          <button class="player-score" 
+                  [disabled]="groupIndex === 0 ? !group1Scored : groupIndex === 1 ? !group2Scored : true" 
+                  (click)="score(teamIndex, groupIndex)">
+            &#9917;
+          </button>
+        </div>
+      </div>
+    </div>
+    
+    </div>
+    
+</div>

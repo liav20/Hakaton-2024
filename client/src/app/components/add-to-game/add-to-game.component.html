@@ -1,14 +1,13 @@
 <div *ngIf="user" class="friend-list-container">
-    <h2>Friend List (Invites left: {{ totalInvites }})</h2>
-    <ul *ngIf="user.friends.length > 0; else noFriends">
-      <li *ngFor="let friendId of user.friends">
-        <span>{{ friendId }}</span>
-        <button (click)="addFriend(friendId)" [disabled]="isInvited(friendId)">Add</button>
-      </li>
-    </ul>
-        <p><a href="/host">close</a></p>
-        <button (click)="sendInvite()">Send</button>
-  <ng-template #noFriends>
-    <p>No friends found.</p>
-  </ng-template>
-  
+  <h2>Friend List (Invites left: {{ totalInvites }})</h2>
+  <ul *ngIf="user.friends.length > 0; else noFriends">
+    <li *ngFor="let friendId of user.friends">
+      <span>{{ friendId }}</span>
+      <button (click)="addFriend(friendId)" [disabled]="isInvited(friendId)">Add</button>
+    </li>
+  </ul>
+      <p><a href="/host">close</a></p>
+      <button (click)="sendInvite()">Send</button>
+<ng-template #noFriends>
+  <p>No friends found.</p>
+</ng-template>
