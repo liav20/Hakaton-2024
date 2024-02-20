@@ -1,0 +1,149 @@
+/* General Page and Container Styling for Non-scrollable Layout */
+body, html {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #0e1a2b; /* Deep blue reminiscent of evening games */
+    font-family: 'Arial', sans-serif;
+    color: #ffffff;
+  }
+  
+  .container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 10px;
+    width: 100%;
+    max-width: 1200px; /* Adjust based on the maximum width you find appropriate */
+    padding: 20px;
+    box-sizing: border-box;
+  }
+  
+  /* Card-like Team Sections */
+  .team-section {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(5px);
+    border-radius: 10px;
+    padding: 15px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    transition: transform 0.2s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative; /* Ensure positioning context for overflow */
+    overflow: hidden; /* Hide overflow */
+  }
+  
+  .team-section:hover {
+    transform: scale(1.03);
+  }
+  
+  /* Compact Headers and Scores */
+  .team-header, .team-scores {
+    text-align: center;
+    margin: 10px 0;
+  }
+  
+  .team-header {
+    font-size: 20px;
+    color: #ffd700;
+    margin-bottom: 5px;
+  }
+  
+  .team-scores {
+    font-size: 16px;
+    margin-top: 5px;
+  }
+  
+  /* Adjusting for Non-scrollable Display */
+  @media (max-width: 768px) {
+    .container {
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    }
+  }
+  
+  /* Tooltip or Modal Trigger for Player Details */
+  .team-players {
+    display: flex;
+    flex-direction: row; /* Arrange items in a row for horizontal layout */
+    overflow-x: auto; /* Enable horizontal scrolling */
+    margin-top: 10px; /* Space above the player list */
+    width: 100%; /* Full width of the team section */
+    padding: 5px 0; /* Padding inside the scroll container */
+  }
+  
+  /* Placeholder for interactive element to display player details */
+  .details-trigger {
+    cursor: pointer;
+    padding: 5px 10px;
+    background-color: #007bff;
+    color: white;
+    border-radius: 5px;
+    margin-top: 10px;
+  }
+  
+  .details-trigger:hover {
+    background-color: #0056b3;
+  }
+  .team-players li {
+    flex: 0 0 auto; /* Prevent flex items from shrinking, causing them to respect their width */
+    margin-right: 10px; /* Space between player entries */
+    white-space: nowrap; /* Prevent wrapping of player names */
+    background-color: #007bff; /* Background color for player items */
+    color: white; /* Text color for player items */
+    padding: 5px 10px; /* Padding inside player items */
+    border-radius: 5px; /* Rounded corners for player items */
+  }
+  .team-players li:last-child {
+    margin-right: 0; /* Remove margin for the last item to avoid extra spacing */
+  }
+ 
+  
+  /* Styling for the "KICK OFF" button */
+  .btn {
+    padding: 10px 20px;
+    background-color: #004D98; /* A deep blue reminiscent of many European football teams */
+    color: #FFFFFF; /* White text for contrast */
+    font-size: 18px;
+    font-weight: bold;
+    text-transform: uppercase;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .btn:hover {
+    background-color: #007BFF; /* Brighter blue on hover for interactivity */
+  }
+  /* Positioning container for the KICK OFF button */
+  .button-container {
+    position: fixed;
+    left: 50%;
+    bottom: 20px;
+    transform: translateX(-50%);
+    z-index: 1000;
+  }
+  
+  /* Styling for the "KICK OFF" button */
+  .btn-kickoff {
+    padding: 10px 20px;
+    background-color: #004D98; /* Deep blue */
+    color: #FFFFFF; /* White text */
+    font-size: 18px;
+    font-weight: bold;
+    text-transform: uppercase;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+  }
+  
+  .btn-kickoff:hover, .btn-kickoff:focus {
+    background-color: #007BFF; /* Brighter blue on hover/focus */
+    transform: translateY(-2px); /* Slight lift effect */
+    outline: none; /* Remove outline to maintain style */
+  }

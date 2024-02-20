@@ -1,0 +1,10 @@
+<div *ngFor="let team of teams; let i = index" class="team-section">
+    <h2 class="team-header">Team {{i + 1}}</h2>
+    <p class="team-scores">Scores: {{totalScores[i]}}</p>
+    <ul class="team-players">
+      <li *ngFor="let player of team">{{player.username}} - {{player.score}}</li>
+    </ul>
+</div>
+<div class="button-container">
+    <button type="button" (click)="start()" class="btn btn-kickoff">KICK OFF</button>
+</div>
