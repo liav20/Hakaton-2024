@@ -1,45 +1,89 @@
 .container {
-    display: flex;
-    justify-content: space-around;
-  }
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.card {
+  width: 100%;
+  margin-bottom: 20px;
+  border-radius: 15px; /* Rounded corners */
+  overflow: hidden; /* Hide overflowing content */
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* Add box shadow for depth */
+}
+
+/* Define order of cards */
+.scorers-card {
+  order: 1;
+}
+
+.win-card {
+  order: 2;
+}
+
+.lose-card {
+  order: 3;
+}
   
-  .card {
-    width: 30%;
-    border-radius: 15px;
-    overflow: hidden;
-    margin-bottom: 20px;
-    background-color: #ffffff;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-  }
-  
-  .card-header {
-    padding: 10px;
-    background-color: #003399; /* Real Madrid Blue */
-    color: #ffffff;
-    font-weight: bold;
-  }
-  
-  .card-body {
-    padding: 20px;
-  }
-  
-  ul {
-    list-style-type: none;
-    padding: 0;
-  }
-  
-  li {
-    margin-bottom: 10px;
-  }
-  
+.card-header {
+  padding: 10px;
+  background-color: #003399;
+  color: #ffffff;
+  font-weight: bold;
+  font-family: Arial, sans-serif; /* Choose a suitable font */
+}
+.card-body {
+  padding: 20px;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+li {
+  margin-bottom: 10px;
+  font-family: Arial, sans-serif; /* Choose a suitable font */
+}
   .win-card {
     border: 3px solid #004b87; /* Real Madrid Dark Blue */
   }
   
   .lose-card {
-    border: 3px solid #fcb514; /* Real Madrid Gold */
+    border: 3px solid #fc7c14; /* Real Madrid Gold */
   }
   
   .scorers-card {
-    border: 3px solid #003399; /* Real Madrid Blue */
+    border: 3px solid #005c99; /* Real Madrid Blue */
   }
+/* Media query for mobile screens */
+@media (min-width: 576px) {
+  .container {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .card {
+    width: calc(50% - 20px);
+    margin-right: 20px;
+  }
+
+  .card:last-child {
+    margin-right: 0;
+  }
+}
+button {
+  background-color: #003399;
+  color: #ffffff;
+  border: none;
+  border-radius: 20px;
+  padding: 10px 20px;
+  font-family: Arial, sans-serif;
+  cursor: pointer;
+  transition: background-color 0.3s ease; /* Smooth transition */
+}
+
+button:hover {
+  background-color: #002266; /* Darker shade on hover */
+}
