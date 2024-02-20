@@ -3,8 +3,8 @@
   
     <!-- Add Friend Form -->
     <div class="add-friend-form">
-      <input type="text" [(ngModel)]="_friendEmail" placeholder="Enter friend's email">
-      <button (click)="addFriend()">Add Friend</button>
+      <input class="input-element" type="text" [(ngModel)]="_friendEmail" placeholder="Enter friend's email">
+      <button class="btn" (click)="addFriend()">Add Friend</button>
     </div>
   
     <!-- Friend List -->
@@ -14,7 +14,7 @@
         <li *ngFor="let emailAddress of _friendList">
           <span>
               <span>{{emailAddress}}</span>
-            <button (click) = "deleteFriend(emailAddress)">Remove</button>
+            <button class="btn" (click) = "deleteFriend(emailAddress)">Remove</button>
           </span>
           <!-- <span>{{ friend.email }}</span> -->
           <!-- <button (click)="deleteFriend()">Delete</button> -->
@@ -24,7 +24,7 @@
   
     <!-- Search Friend -->
     <div class="search-friend">
-      <input type="text" placeholder="Search by name/email">
-      <button>Search</button>
+      <input class="input-element" type="text" placeholder="Search by name/email">
+      <button class="btn">Search</button>
     </div>
   </div>
