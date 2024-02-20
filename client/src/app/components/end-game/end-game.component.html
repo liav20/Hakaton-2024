@@ -1,0 +1,32 @@
+<div class="container">
+  <div class="card win-card">
+    <div class="card-header">Winning Team</div>
+    <div class="card-body">
+      <ul>
+        <li *ngFor="let user of winNames">{{ user }}</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card lose-card">
+    <div class="card-header">Losing Team</div>
+    <div class="card-body">
+      <ul>
+        <li *ngFor="let user of loseNames">{{ user }}</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card scorers-card">
+    <div class="card-header">Top Scorers</div>
+    <div class="card-body">
+      <ul>
+        <li *ngFor="let scorer of scorersNames">{{ scorer.username }} ({{ scorer.goals }})</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <button (click)="endGame()">End</button>
+</div>
