@@ -3,8 +3,10 @@ import User from '../../models/user';
 import { UserService } from '../../services/user.service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router'; 
+
 import { GameService } from '../../services/game.service';
+import { Subscription } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-to-game',
@@ -17,32 +19,35 @@ export class AddToGameComponent implements OnInit {
   user: User | undefined;
  // Example limit, adjust as needed
   emails: Set<string> = new Set(); 
-
+  private subscriptions = new Subscription();
   constructor(private userService: UserService,
-    private router: Router,
-    private _gameService : GameService) {}
+    private _gameService : GameService,
+    private router : Router) {}
     groupNumber: number = 0;
     playersPerTeam: number=0;
     hostId: any;
     totalInvites : number = 0; 
   
-  ngOnInit() {
-    this.userService.currentUser.subscribe(user => {
-      if (user) {
-        this.user = user;
-        this.userService.getUser(this.user._id).subscribe(user => {
-          if (user) {
-            this.user = user;
-            this.emails.add(user.email);
-          }
-        })
-      }
-    });
-    const setup = this._gameService.getGameSetup();
-    this.groupNumber = setup.numTeams;
-    this.playersPerTeam = setup.playersPerTeam;
-    this.totalInvites = this.groupNumber * this.playersPerTeam -1;
-  }
+    ngOnInit() {
+      this.userService.currentUser.subscribe(user => {
+        if (user) {
+          this.user = user;
+          this.userService.getUser(this.user._id).subscribe(user => {
+            if (user) {
+              this.user = user;
+              this.emails.add(user.email);
+            }
+          })
+        }
+      });
+      const setup = this._gameService.getGameSetup();
+      this.groupNumber = setup.numTeams;
+      this.playersPerTeam = setup.playersPerTeam;
+      this.totalInvites = this.groupNumber * this.playersPerTeam -1;
+    }
+    ngOnDestroy() {
+      this.subscriptions.unsubscribe();
+    }
 
   addFriend(friendId: string): void {
     if (this.totalInvites > 0 && !this.emails.has(friendId)) {
@@ -57,16 +62,19 @@ export class AddToGameComponent implements OnInit {
   isInvited(friendId: string): boolean {
     return this.emails.has(friendId);
   }
+
   navigateToHost(): void {
-    this.router.navigate(['/host']);
+    this.router.navigate(['/match']);
   }
   sendInvite(): void {
     if (this.user) {
-      // Convert Set to Array for invitedFriends
       const invitedFriendsArray = Array.from(this.emails);
-      console.log(invitedFriendsArray);
-      this._gameService.sendInvites(this.groupNumber, invitedFriendsArray).subscribe(data =>{     
-          this.navigateToHost();
+      this._gameService.sendInvites(this.groupNumber, invitedFriendsArray).subscribe(
+         (response) => {
+          console.log(response);
+          console.log('Invites sent successfully', response);
+          this._gameService.setTeamsAndScores(response.teams, response.totalScores); // Implement this method in your service
+        this.navigateToHost();
         }
     )}
   }

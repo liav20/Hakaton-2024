@@ -1,42 +1,59 @@
-/* add-to-game.component.css */
 .friend-list-container {
-    max-width: 600px;
-    margin: auto;
+  max-width: 400px; /* Adjusted for a smaller width */
+  height: 400px; /* Set a fixed height */
+  overflow-y: auto; /* Enable vertical scrolling */
+  margin: auto;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Optional: Adds shadow for depth */
+  padding: 20px; /* Add padding for inner content */
+  background-color: #fff; /* Ensure background contrasts for readability */
+  border-radius: 8px; /* Soften edges */
+}
+
+.friend-list-container h2 {
+  text-align: center;
+  font-size: 18px; /* Adjust font size for smaller container */
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0; /* Remove default margin for tighter spacing */
+}
+
+li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  background-color: #f0f0f0;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+li span {
+  margin-right: auto;
+}
+
+button {
+  padding: 5px 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+button:disabled {
+  background-color: #cccccc; /* Style for disabled button to indicate it's not clickable */
+}
+
+/* Ensure the container doesn't exceed the viewport height on smaller screens */
+@media (max-height: 500px) {
+  .friend-list-container {
+    height: 300px; /* Adjust height for very small screens */
   }
-  
-  .friend-list-container h2 {
-    text-align: center;
-  }
-  
-  ul {
-    list-style-type: none;
-    padding: 0;
-  }
-  
-  li {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 10px;
-    background-color: #f0f0f0;
-    padding: 10px;
-    border-radius: 5px;
-  }
-  
-  li span {
-    margin-right: auto;
-  }
-  
-  button {
-    padding: 5px 10px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
-  button:hover {
-    background-color: #0056b3;
-  }
-  
+}

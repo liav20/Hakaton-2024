@@ -1,10 +1,5 @@
 <div class="timer-container">
-    <div class="timer">
-      <span>{{ formatTime(minutes) }}</span>:<span>{{ formatTime(seconds) }}</span>
-    </div>
-    <div class="controls">
-      <button (click)="startTimer()">Start</button>
-      <button (click)="pauseTimer()">Pause</button>
-      <button (click)="resetTimer()">Reset</button>
-    </div>
-  </div>
+  <div class="timer-display">{{ displayTime }}</div>
+  <button (click)="pauseTimer()" *ngIf="isRunning">Pause</button>
+  <button (click)="continueTimer()" *ngIf="!isRunning">Continue</button>
+</div>

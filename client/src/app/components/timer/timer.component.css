@@ -1,36 +1,52 @@
+/* timer.component.css */
+@import url('https://example.com/path/to/digital-7-font.css');
+
 .timer-container {
     position: fixed;
     top: 20px;
     left: 50%;
     transform: translateX(-50%);
-    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: space-around; /* Adjust based on your layout preference */
+    width: 200px; /* Fixed size for the circle */
+    height: 200px; /* Making the timer circular */
+    background-color: #fff; /* Light background */
+    border: 2px solid #007bff; /* Border color */
+    border-radius: 50%; /* Circular shape */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Soft shadow */
+    padding: 15px;
+    flex-direction: column; /* Stack timer and buttons vertically */
   }
   
-  .timer {
-    font-size: 36px;
-    font-weight: bold;
-    color: #333;
-  }
-  
-  .controls {
-    margin-top: 10px;
-  }
+    .timer-display {
+        font-size: 68px; /* Larger font size for better visibility */
+        font-family: 'Digital-7', 'Lucida Console', 'Monaco', monospace; /* Digital clock-like font */
+        color: #007bff; /* Adjust color if needed */
+        text-align: center; /* Ensure the text is centered */
+      }
   
   button {
-    padding: 8px 16px;
-    margin: 0 5px;
-    font-size: 16px;
-    cursor: pointer;
-    background-color: #4CAF50;
-    color: white;
     border: none;
-    border-radius: 4px;
+    padding: 8px 16px;
+    border-radius: 20px; /* Rounded buttons */
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.2s; /* Smooth transition */
   }
   
   button:hover {
-    background-color: #45a049;
+    background-color: #0056b3;
   }
   
-  button:active {
-    background-color: #3e8e41;
+  button:disabled {
+    background-color: #6c757d;
+    cursor: not-allowed;
   }
+
+
+/* Then, use the font-family in your .timer-display class as shown above. */
+
+  

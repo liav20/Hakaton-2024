@@ -1,79 +1,128 @@
-.team {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-  }
-  
-  .team-info {
-    display: flex;
-    align-items: center;
-  }
-  
-  .team-name {
-    font-weight: bold;
-    margin-right: 10px;
-  }
-  
-  .goal-control button {
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
-    font-size: 20px;
-  }
-  
-  .goal-control button:hover {
-    color: blue;
-  }
-  
-  .goal-control input {
-    width: 40px;
-    text-align: center;
-    font-size: 16px;
-  }
-  
-  .goals {
-    font-size: 20px;
-  }
-  .container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  
-  .team-container {
-    width: 45%; /* Adjust as needed */
-  }
-  .team {
+/* Main container setup */
+.main-container {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
+  flex-direction: column;
+  justify-content: flex-start; /* Align items to the top */
+  align-items: center; /* Center items horizontally */
+  height: 100vh; /* Make the container fill the viewport height */
+  width: 100%;
+  font-family: 'Arial', sans-serif;
+  background-color: #f4f4f4;
+  padding-top: 20px; /* Adjusted for top padding */
+}
+.spacer {
+  flex-grow: 1;
+  flex-shrink: 0;
+   /* Adjust this value to control the vertical position */
 }
 
-.team-info {
+/* Timer styling */
+.timer-container {
+  text-align: center;
+  margin-bottom: 30px;
+  font-size: 1.5em;
+  color: #333;
+}
+.result-container {
   display: flex;
+  align-items: center; /* Ensures vertical alignment */
+  justify-content: center; /* Centers the content horizontally */
+  gap: 20px; /* Adds space between the buttons and the result screen */
+}
+
+/* Result screen styling */
+.result-screen {
+  font-size: 2em;
+  height: 120px;
+  width: 250px;
+  border: 3px solid #333;
+  background-color: #fff;
+  color: #333;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+/* Game container adjustments for team listings */
+.game-container {
+  display: flex;
+  justify-content: space-around;
+  width: 80%; /* Reduce width for centered look */
+  max-width: 960px; /* Max width to avoid overly wide layouts on large screens */
+}
+
+.score-button {
+  font-size: 1em;
+  width: 50px; /* Adjust as needed */
+  height: 50px; /* Adjust to match the result screen height for alignment */
+  background-color: #0275d8; /* Button color */
+  color: white; /* Text color */
+  border: none;
+  cursor: pointer;
+  border-radius: 50%; /* Makes the button circular */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+.score-button:hover {
+  background-color: #025fa1; /* Darker shade on hover for feedback */
+}
+/* Group (team) styling */
+.group {
+  flex: 1;
+  padding: 20px; /* More padding for visual separation */
+  background-color: #fff; /* White background for contrast */
+  border: 2px solid #ddd; /* Light border for definition */
+  border-radius: 8px; /* Rounded corners */
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Consistent shadow for depth */
+  margin: 0 10px; /* Space between groups */
+  color: #333; /* Dark text for readability */
+  display: flex; /* Enables internal flex layout for items */
+  flex-direction: column; /* Stack items vertically */
+  justify-content: start; /* Align items to the start */
+}
+
+/* Display only the first two groups and keep others in waiting list hidden */
+.group:first-child, .group:nth-child(2) {
+  display: flex; /* Ensure these are visible */
+}
+
+/* Waiting list hidden (additional groups beyond the first two) */
+.waiting-list {
+  display: none; /* Hide additional groups */
+}
+
+/* Optional: Add some specific styling for headings and text to enhance readability */
+h2 {
+  color: #0275d8; /* A bit of color for group headings */
+  margin-bottom: 15px; /* Space below headings */
+}
+
+p {
+  margin: 5px 0; /* Tighter paragraph spacing */
+  line-height: 1.4; /* Improved line spacing for readability */
+}
+.team-entry {
+  display: flex;
+  justify-content: space-between;
   align-items: center;
 }
 
 .team-name {
-  font-weight: bold;
-  margin-right: 10px;
+  flex-grow: 1; /* Ensures the username takes up the available space */
 }
 
-.goal-control button {
+.player-score {
   background-color: transparent;
   border: none;
   cursor: pointer;
-  font-size: 20px;
+  font-size: 1.2em; /* Adjust size as needed */
+  margin-left: 10px; /* Adds some space between the username and the score button */
 }
 
-.goal-control button:hover {
-  color: blue;
-}
-
-.goal-control input {
-  width: 40px;
-  text-align: center;
-  font-size: 16px;
+.player-score i {
+  color: #4CAF50; /* Example color - adjust as needed */
 }
