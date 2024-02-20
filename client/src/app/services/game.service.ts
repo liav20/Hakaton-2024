@@ -25,7 +25,7 @@ export class GameService {
   }
 
   postEndGame(gameID: string, body: any){
-    return this.http.post('http://localhost:3000/api/game/EndGame/' + gameID.toString(), body);
+    return this.http.put('http://localhost:3000/api/game/EndGame/' + gameID.toString(), body);
   }
 
   setGameSetup(numTeams: number, playersPerTeam: number) {
