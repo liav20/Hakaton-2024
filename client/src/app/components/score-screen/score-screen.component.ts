@@ -50,12 +50,12 @@ export class ScoreScreenComponent{
           this.user = user;
           console.log(this.user._id);
           if (this.user._id) {
-            this.gameService.getGameId(this.user._id.toString()).subscribe(data => {
+            this.gameService.getGameId(this.user._id).subscribe(data => {
               this.gameId = data.gameId; // Assuming the response structure { gameId: string }
             }, error => console.error('Error fetching game ID:', error));
           }
         }
-      }, error => console.error('Error fetching user:', error))
+      }, error => console.error('Error fetching user:', error)) 
     );
     this.gameService.getTeamsObservable().subscribe(teams => {
       this.teams = teams;
@@ -111,8 +111,10 @@ export class ScoreScreenComponent{
       loseScore: 0,
       scorers: this.Scorers
     }
-    this.router.navigate(['/endgame'], );
-    
+    console.log(gamedata);
+    setTimeout(() =>{
+      this.router.navigate(['/endgame'], {state: gamedata} );
+    }, 3000)    
   }
 
   score(teamIndex: number, groupIndex: number) {

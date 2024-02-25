@@ -41,6 +41,7 @@ export class InviteScreenComponent implements OnInit,OnDestroy {
           if (this.user._id) {
             this._gameservice.getGameId(this.user._id.toString()).subscribe(data => {
               this.gameId = data.gameId; // Assuming the response structure { gameId: string }
+              console.log(this.gameId);
             }, error => console.error('Error fetching game ID:', error));
           }
         }

@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UserService } from '../../services/user.service';
 import { CommonModule } from '@angular/common';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-end-game',
@@ -15,14 +16,29 @@ import { CommonModule } from '@angular/common';
 })
 export class EndGameComponent {
 
+  private data: any = {};
   constructor(private _gameService: GameService,
               private _userService: UserService,
-              private router: Router) {}
+              private router: Router) {
+                const navigation = this.router.getCurrentNavigation();
+                console.log(navigation)
+                console.log(navigation)
+    if (navigation && navigation.extras && navigation.extras.state) {
+      this._gameId = navigation.extras.state['gameId'];
+      this._winTeam = navigation.extras.state['winTeam'];
+      this._loseTeam = navigation.extras.state['loseTeam'];
+      this._winScore = navigation.extras.state['winScore'];
+      this._loseScore = navigation.extras.state['loseScore'];
+      this._scorers = navigation.extras.state['scorers'];
+    }
+              }
   
-  private _gameId: string = "65d25eefd0f41e87a40a11ef";
+  private _gameId: string = "";
   private _winTeam: string [] = [];
   private _loseTeam: string [] = [];
   private _waitingTeams: string [] [] = [];
+
+  
 
   private _winScore: number = 0;
   private _loseScore: number = 0;
@@ -34,25 +50,27 @@ export class EndGameComponent {
   protected scorersNames: {username: string, goals: number}[] = [];
   
   ngOnInit() {
-    const navigation = this.router.getCurrentNavigation();
-    if (navigation && navigation.extras && navigation.extras.state) {
-      this._gameId = navigation.extras.state['gameId'];
-      this._winTeam = navigation.extras.state['winTeam'];
-      this._loseTeam = navigation.extras.state['loseTeam'];
-      this._winScore = navigation.extras.state['winScore'];
-      this._loseScore = navigation.extras.state['loseScore'];
-      this._scorers = navigation.extras.state['scorers'];
-    }
-    else{
-      let user1Id = '65d1de15e914c3271131dd4e'
-      let user2Id = '65d1e650e914c3271131dd59'
-      this._winTeam.push(user1Id);
-      this._loseTeam.push(user2Id);
-      this._scorers.push(user1Id, user2Id , user1Id);
-      this._winScore = 2
-      this._loseScore = 1
-    }
-
+    //const navigation = this.router.getCurrentNavigation();
+    // console.log(navigation)
+    // console.log(navigation)
+    // if (navigation && navigation.extras && navigation.extras.state) {
+    //   this._gameId = navigation.extras.state['gameId'];
+    //   this._winTeam = navigation.extras.state['winTeam'];
+    //   this._loseTeam = navigation.extras.state['loseTeam'];
+    //   this._winScore = navigation.extras.state['winScore'];
+    //   this._loseScore = navigation.extras.state['loseScore'];
+    //   this._scorers = navigation.extras.state['scorers'];
+    // }
+    // else{
+    //   let user1Id = '65d1de15e914c3271131dd4e'
+    //   let user2Id = '65d1e650e914c3271131dd59'
+    //   this._winTeam.push(user1Id);
+    //   this._loseTeam.push(user2Id);
+    //   this._scorers.push(user1Id, user2Id , user1Id);
+    //   this._winScore = 2
+    //   this._loseScore = 1
+    // }
+    
     this._winTeam.forEach(id => {
       this._userService.getUser(id).subscribe(user => {
         if (user) {
@@ -99,7 +117,7 @@ export class EndGameComponent {
     console.log(body);
     this._gameService.postEndGame(this._gameId, body).subscribe(data => {
       console.log('body:' + body);
-      // this.router.navigate(['/home']);
+      this.router.navigate(['/home']);
     }, err => {
       console.log(err);
     })

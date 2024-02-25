@@ -166,23 +166,27 @@ async function updateScores(userIds, scoreChange) {
     }
 }
 
-router.get('/getGameId/:id', async (req, res) => {
+router.get('/getGetGame/:id', (req, res) => {
     const hostId = req.params.id;
 
     // Assuming Game model has a static method for finding games by host ID
-    await Game.findOne({ hostId: hostId }, (err, game) => {
+    Game.findOne({ hostId: hostId }, (err, game) => {
         if (err) {
             console.error('Error finding game:', err);
             return res.status(500).json({ error: 'Internal server error' });
         }
         
         if (!game) {
-            return res.status(404).json({ error: 'Game not found' });
+            return res.status(404).json({ message: 'Game not found' });
         }
 
-        const gameId = game._id; // Assuming game ID is stored in the _id property
-        res.json({ gameId });
-    });
+        // Respond with the MongoDB _id of the game
+        res.json({ gameId: game._id });
+    } catch (error) {
+        // Handle errors (e.g., invalid host ID format)
+        console.error('Error fetching game ID:', error);
+        res.status(500).json({ message: 'Server error' });
+    }
 });
 
 
