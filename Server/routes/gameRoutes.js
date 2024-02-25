@@ -166,11 +166,11 @@ async function updateScores(userIds, scoreChange) {
     }
 }
 
-router.get('/getGetGame/:id', (req, res) => {
+router.get('/getGameId/:id', async (req, res) => {
     const hostId = req.params.id;
 
     // Assuming Game model has a static method for finding games by host ID
-    Game.findOne({ hostId: hostId }, (err, game) => {
+    await Game.findOne({ hostId: hostId }, (err, game) => {
         if (err) {
             console.error('Error finding game:', err);
             return res.status(500).json({ error: 'Internal server error' });
